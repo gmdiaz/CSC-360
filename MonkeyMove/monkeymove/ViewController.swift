@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var monkey: UIImageView!
     var frameRate : Float  = 30.0
-    var smoothingFactor : CGFloat = 0.1
+    var smoothingFactor : CGFloat = 0.5
     var motionManager : CMMotionManager!  // don't forget to hang on to montionManager
     
     override func viewDidLoad() {
@@ -31,7 +31,7 @@ class ViewController: UIViewController {
         motionManager = CMMotionManager()
         
         // Setting up the update interval : specified in seconds
-        motionManager.accelerometerUpdateInterval = 0.01 /*/Double(frameRate)*/
+        motionManager.accelerometerUpdateInterval = 5.0 /*/Double(frameRate)*/
 
         self.motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue()) {
             (data, error) in
@@ -45,18 +45,21 @@ class ViewController: UIViewController {
                 // My attempt at smoothing the data... it could be better
                 let sx = CGFloat(data.userAcceleration.x) * self.smoothingFactor * (1.0 - self.smoothingFactor)
                 let sy = CGFloat(data.userAcceleration.y) * self.smoothingFactor * (1.0 - self.smoothingFactor)
+                let sz = CGFloat(data.userAcceleration.z) * self.smoothingFactor * (1.0 - self.smoothingFactor)
                 
+                //NSString(format:"%.4f", sz)
                 self.xAccelField.text = nf.stringFromNumber(sx)
                 self.yAccelField.text = nf.stringFromNumber(sy)
-                //self.zAccelField.text = nf.stringFromNumber(data.userAcceleration.z)
+                self.zAccelField.text = nf.stringFromNumber(sz)
                 
                 if (currentX < self.view.bounds.width && currentX > 0) {
                     var destX = (CGFloat(data.userAcceleration.y) * CGFloat(self.frameRate) + CGFloat(currentX))
                     var destY = CGFloat(currentY)
                     // Update position
                     self.monkey.center = CGPointMake(destX, destY)
-                } else if (currentX == self.view.bounds.width || currentX == 0) {
-                    self.monkey.center = CGPointMake(0.0, 0.0)
+                } else if (currentX > self.view.bounds.width || currentX < 0) {
+                    // Attempt at resetting monkey position to 0 so that it doesn't get stuck
+                    self.monkey.center = CGPointMake(self.view.bounds.width/2, self.view.bounds.height/2)
                 }
                 
                 
