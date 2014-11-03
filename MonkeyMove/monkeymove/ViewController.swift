@@ -26,7 +26,6 @@ class ViewController: UIViewController {
         // Centering the monkey on the screen -- good if you want it centered on different screens
         monkey.center = CGPointMake(self.view.bounds.width/2, self.view.bounds.height/2)
         
-        
         //Creating instance of CoreMotion
         motionManager = CMMotionManager()
         
