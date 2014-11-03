@@ -10,7 +10,7 @@ import UIKit
 import CoreMotion
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var xAccelField: UITextField!
     @IBOutlet weak var yAccelField: UITextField!
     @IBOutlet weak var zAccelField: UITextField!
@@ -19,6 +19,10 @@ class ViewController: UIViewController {
     var frameRate : Float  = 30.0
     var smoothingFactor : CGFloat = 0.5
     var motionManager : CMMotionManager!  // don't forget to hang on to montionManager
+    
+    var sx :Float = 0
+    var sy :Float = 0
+    var sz :Float = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,8 +34,8 @@ class ViewController: UIViewController {
         motionManager = CMMotionManager()
         
         // Setting up the update interval : specified in seconds
-        motionManager.accelerometerUpdateInterval = 5.0 /*/Double(frameRate)*/
-
+        motionManager.accelerometerUpdateInterval = 1.0/Double(frameRate)
+        
         self.motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue()) {
             (data, error) in
             dispatch_async(dispatch_get_main_queue()) { // need to modify view on screen in main thread
@@ -41,25 +45,45 @@ class ViewController: UIViewController {
                 let currentX = self.monkey.center.x
                 let currentY = self.monkey.center.y
                 
-                // My attempt at smoothing the data... it could be better
-                let sx = CGFloat(data.userAcceleration.x) * self.smoothingFactor * (1.0 - self.smoothingFactor)
-                let sy = CGFloat(data.userAcceleration.y) * self.smoothingFactor * (1.0 - self.smoothingFactor)
-                let sz = CGFloat(data.userAcceleration.z) * self.smoothingFactor * (1.0 - self.smoothingFactor)
+                
+                var smoothing :Float = 0.99
+                self.sx = smoothing * self.sx + (1.0-smoothing) * Float(data.userAcceleration.x)
+                self.sy = smoothing * self.sy + (1.0-smoothing) * Float(data.userAcceleration.y)
+                self.sz = smoothing * self.sz + (1.0-smoothing) * Float(data.userAcceleration.z)
+                
+                //                let sx = CGFloat(data.userAcceleration.x)
+                //               let sy = CGFloat(data.userAcceleration.y)
+                //              let sz = CGFloat(data.userAcceleration.z)
                 
                 //NSString(format:"%.4f", sz)
-                self.xAccelField.text = nf.stringFromNumber(sx)
-                self.yAccelField.text = nf.stringFromNumber(sy)
-                self.zAccelField.text = nf.stringFromNumber(sz)
+                self.xAccelField.text = nf.stringFromNumber(self.sx)
+                self.yAccelField.text = nf.stringFromNumber(self.sy)
+                self.zAccelField.text = nf.stringFromNumber(self.sz)
                 
-                if (currentX < self.view.bounds.width && currentX > 0) {
-                    var destX = (CGFloat(data.userAcceleration.y) * CGFloat(self.frameRate) + CGFloat(currentX))
-                    var destY = CGFloat(currentY)
-                    // Update position
-                    self.monkey.center = CGPointMake(destX, destY)
-                } else if (currentX > self.view.bounds.width || currentX < 0) {
-                    // Attempt at resetting monkey position to 0 so that it doesn't get stuck
-                    self.monkey.center = CGPointMake(self.view.bounds.width/2, self.view.bounds.height/2)
+                var destX = (CGFloat(data.userAcceleration.x) * CGFloat(self.frameRate) + CGFloat(currentX))
+                var destY = (CGFloat(data.userAcceleration.y) * CGFloat(self.frameRate) + CGFloat(currentY))
+                
+                if destY < 0 {
+                    destY = self.view.bounds.height + destY
                 }
+                if destX < 0 {
+                    destX = self.view.bounds.width + destX
+                }
+                destX %= self.view.bounds.width
+                destY %= self.view.bounds.height
+                
+                self.monkey.center = CGPointMake(destX, destY)
+                
+                
+                //                if (currentX < self.view.bounds.width && currentX > 0) {
+                //                  var destX = (CGFloat(data.userAcceleration.y) * CGFloat(self.frameRate) + CGFloat(currentX))
+                //                var destY = CGFloat(currentY)
+                // Update position
+                //              self.monkey.center = CGPointMake(destX, destY)
+                //        } else if (currentX > self.view.bounds.width || currentX < 0) {
+                //          // Attempt at resetting monkey position to 0 so that it doesn't get stuck
+                //        self.monkey.center = CGPointMake(self.view.bounds.width/2, self.view.bounds.height/2)
+                //  }
                 
                 
             }
@@ -71,7 +95,7 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
-
+    
+    
 }
 
