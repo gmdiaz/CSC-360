@@ -44,7 +44,7 @@ class ViewController: UIViewController {
                 
                 let currentX = self.monkey.center.x
                 let currentY = self.monkey.center.y
-                
+                //let currentZ = self.monkey.center.z
                 
                 var smoothing :Float = 0.99
                 self.sx = smoothing * self.sx + (1.0-smoothing) * Float(data.userAcceleration.x)
@@ -58,10 +58,29 @@ class ViewController: UIViewController {
                 //NSString(format:"%.4f", sz)
                 self.xAccelField.text = nf.stringFromNumber(self.sx)
                 self.yAccelField.text = nf.stringFromNumber(self.sy)
-                self.zAccelField.text = nf.stringFromNumber(self.sz)
+                //self.zAccelField.text = nf.stringFromNumber(self.sz)
                 
+//                // check if acceleration is 0 -- constant velocity
+//                if Float(data.userAcceleration.x)!=0 {
+//                    var destX = (CGFloat(data.userAcceleration.x) * CGFloat(self.frameRate) + CGFloat(currentX))
+//                } else {
+//                    // constant velocity. Do something
+//                }
+//                if Float(data.userAcceleration.y)!=0{
+//                    var destY = (CGFloat(data.userAcceleration.y) * CGFloat(self.frameRate) + CGFloat(currentY))
+//                } else {
+//                    // constant velocity. Do something
+//                }
+//                if Float(data.userAcceleration.z)!=0 {
+//                    var destZ = (CGFloat(data.userAcceleration.z) * CGFloat(self.frameRate) + CGFloat(currentZ))
+//                } else {
+//                    // constant velocity. Do something
+//                }
+
                 var destX = (CGFloat(data.userAcceleration.x) * CGFloat(self.frameRate) + CGFloat(currentX))
                 var destY = (CGFloat(data.userAcceleration.y) * CGFloat(self.frameRate) + CGFloat(currentY))
+                //var destZ = (CGFloat(data.userAcceleration.z) * CGFloat(self.frameRate) + CGFloat(currentZ))
+
                 
                 if destY < 0 {
                     destY = self.view.bounds.height + destY
@@ -73,7 +92,7 @@ class ViewController: UIViewController {
                 destY %= self.view.bounds.height
                 
                 self.monkey.center = CGPointMake(destX, destY)
-                
+                //self.monkey.center = CGPointMake(destX, destY, desZ)
                 
                 //                if (currentX < self.view.bounds.width && currentX > 0) {
                 //                  var destX = (CGFloat(data.userAcceleration.y) * CGFloat(self.frameRate) + CGFloat(currentX))
