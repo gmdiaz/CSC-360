@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EC70EEB41A070DA80015EE24"
+               BlueprintIdentifier = "EC952A2B1A0AC90B00A4549A"
                BuildableName = "sk3tch.app"
                BlueprintName = "sk3tch"
                ReferencedContainer = "container:sk3tch.xcodeproj">
@@ -28,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EC70EECD1A070DA80015EE24"
+               BlueprintIdentifier = "EC952A431A0AC90C00A4549A"
                BuildableName = "sk3tchTests.xctest"
                BlueprintName = "sk3tchTests"
                ReferencedContainer = "container:sk3tch.xcodeproj">
@@ -46,7 +46,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EC70EECD1A070DA80015EE24"
+               BlueprintIdentifier = "EC952A431A0AC90C00A4549A"
                BuildableName = "sk3tchTests.xctest"
                BlueprintName = "sk3tchTests"
                ReferencedContainer = "container:sk3tch.xcodeproj">
@@ -56,7 +56,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EC70EEB41A070DA80015EE24"
+            BlueprintIdentifier = "EC952A2B1A0AC90B00A4549A"
             BuildableName = "sk3tch.app"
             BlueprintName = "sk3tch"
             ReferencedContainer = "container:sk3tch.xcodeproj">
@@ -75,7 +75,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EC70EEB41A070DA80015EE24"
+            BlueprintIdentifier = "EC952A2B1A0AC90B00A4549A"
             BuildableName = "sk3tch.app"
             BlueprintName = "sk3tch"
             ReferencedContainer = "container:sk3tch.xcodeproj">
@@ -93,7 +93,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EC70EEB41A070DA80015EE24"
+            BlueprintIdentifier = "EC952A2B1A0AC90B00A4549A"
             BuildableName = "sk3tch.app"
             BlueprintName = "sk3tch"
             ReferencedContainer = "container:sk3tch.xcodeproj">

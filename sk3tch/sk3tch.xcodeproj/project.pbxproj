@@ -7,50 +7,48 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EC70EEBB1A070DA80015EE24 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC70EEBA1A070DA80015EE24 /* AppDelegate.swift */; };
-		EC70EEBD1A070DA80015EE24 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC70EEBC1A070DA80015EE24 /* RootViewController.swift */; };
-		EC70EEBF1A070DA80015EE24 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC70EEBE1A070DA80015EE24 /* DataViewController.swift */; };
-		EC70EEC11A070DA80015EE24 /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC70EEC01A070DA80015EE24 /* ModelController.swift */; };
-		EC70EEC41A070DA80015EE24 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC70EEC21A070DA80015EE24 /* Main.storyboard */; };
-		EC70EEC61A070DA80015EE24 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC70EEC51A070DA80015EE24 /* Images.xcassets */; };
-		EC70EEC91A070DA80015EE24 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC70EEC71A070DA80015EE24 /* LaunchScreen.xib */; };
-		EC70EED51A070DA80015EE24 /* sk3tchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC70EED41A070DA80015EE24 /* sk3tchTests.swift */; };
+		EC952A321A0AC90B00A4549A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC952A311A0AC90B00A4549A /* AppDelegate.swift */; };
+		EC952A351A0AC90B00A4549A /* sk3tch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EC952A331A0AC90B00A4549A /* sk3tch.xcdatamodeld */; };
+		EC952A371A0AC90B00A4549A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC952A361A0AC90B00A4549A /* ViewController.swift */; };
+		EC952A3A1A0AC90C00A4549A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC952A381A0AC90C00A4549A /* Main.storyboard */; };
+		EC952A3C1A0AC90C00A4549A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC952A3B1A0AC90C00A4549A /* Images.xcassets */; };
+		EC952A3F1A0AC90C00A4549A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC952A3D1A0AC90C00A4549A /* LaunchScreen.xib */; };
+		EC952A4B1A0AC90C00A4549A /* sk3tchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC952A4A1A0AC90C00A4549A /* sk3tchTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		EC70EECF1A070DA80015EE24 /* PBXContainerItemProxy */ = {
+		EC952A451A0AC90C00A4549A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = EC70EEAD1A070DA80015EE24 /* Project object */;
+			containerPortal = EC952A241A0AC90B00A4549A /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = EC70EEB41A070DA80015EE24;
+			remoteGlobalIDString = EC952A2B1A0AC90B00A4549A;
 			remoteInfo = sk3tch;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		EC70EEB51A070DA80015EE24 /* sk3tch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sk3tch.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		EC70EEB91A070DA80015EE24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EC70EEBA1A070DA80015EE24 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EC70EEBC1A070DA80015EE24 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
-		EC70EEBE1A070DA80015EE24 /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
-		EC70EEC01A070DA80015EE24 /* ModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelController.swift; sourceTree = "<group>"; };
-		EC70EEC31A070DA80015EE24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		EC70EEC51A070DA80015EE24 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		EC70EEC81A070DA80015EE24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		EC70EECE1A070DA80015EE24 /* sk3tchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sk3tchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		EC70EED31A070DA80015EE24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EC70EED41A070DA80015EE24 /* sk3tchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sk3tchTests.swift; sourceTree = "<group>"; };
+		EC952A2C1A0AC90B00A4549A /* sk3tch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sk3tch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC952A301A0AC90B00A4549A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EC952A311A0AC90B00A4549A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		EC952A341A0AC90B00A4549A /* sk3tch.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = sk3tch.xcdatamodel; sourceTree = "<group>"; };
+		EC952A361A0AC90B00A4549A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EC952A391A0AC90C00A4549A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EC952A3B1A0AC90C00A4549A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		EC952A3E1A0AC90C00A4549A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		EC952A441A0AC90C00A4549A /* sk3tchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sk3tchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC952A491A0AC90C00A4549A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EC952A4A1A0AC90C00A4549A /* sk3tchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sk3tchTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		EC70EEB21A070DA80015EE24 /* Frameworks */ = {
+		EC952A291A0AC90B00A4549A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EC70EECB1A070DA80015EE24 /* Frameworks */ = {
+		EC952A411A0AC90C00A4549A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -60,60 +58,59 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		EC70EEAC1A070DA80015EE24 = {
+		EC952A231A0AC90B00A4549A = {
 			isa = PBXGroup;
 			children = (
-				EC70EEB71A070DA80015EE24 /* sk3tch */,
-				EC70EED11A070DA80015EE24 /* sk3tchTests */,
-				EC70EEB61A070DA80015EE24 /* Products */,
+				EC952A2E1A0AC90B00A4549A /* sk3tch */,
+				EC952A471A0AC90C00A4549A /* sk3tchTests */,
+				EC952A2D1A0AC90B00A4549A /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		EC70EEB61A070DA80015EE24 /* Products */ = {
+		EC952A2D1A0AC90B00A4549A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EC70EEB51A070DA80015EE24 /* sk3tch.app */,
-				EC70EECE1A070DA80015EE24 /* sk3tchTests.xctest */,
+				EC952A2C1A0AC90B00A4549A /* sk3tch.app */,
+				EC952A441A0AC90C00A4549A /* sk3tchTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		EC70EEB71A070DA80015EE24 /* sk3tch */ = {
+		EC952A2E1A0AC90B00A4549A /* sk3tch */ = {
 			isa = PBXGroup;
 			children = (
-				EC70EEBA1A070DA80015EE24 /* AppDelegate.swift */,
-				EC70EEBC1A070DA80015EE24 /* RootViewController.swift */,
-				EC70EEBE1A070DA80015EE24 /* DataViewController.swift */,
-				EC70EEC01A070DA80015EE24 /* ModelController.swift */,
-				EC70EEC21A070DA80015EE24 /* Main.storyboard */,
-				EC70EEC51A070DA80015EE24 /* Images.xcassets */,
-				EC70EEC71A070DA80015EE24 /* LaunchScreen.xib */,
-				EC70EEB81A070DA80015EE24 /* Supporting Files */,
+				EC952A311A0AC90B00A4549A /* AppDelegate.swift */,
+				EC952A361A0AC90B00A4549A /* ViewController.swift */,
+				EC952A381A0AC90C00A4549A /* Main.storyboard */,
+				EC952A3B1A0AC90C00A4549A /* Images.xcassets */,
+				EC952A3D1A0AC90C00A4549A /* LaunchScreen.xib */,
+				EC952A331A0AC90B00A4549A /* sk3tch.xcdatamodeld */,
+				EC952A2F1A0AC90B00A4549A /* Supporting Files */,
 			);
 			path = sk3tch;
 			sourceTree = "<group>";
 		};
-		EC70EEB81A070DA80015EE24 /* Supporting Files */ = {
+		EC952A2F1A0AC90B00A4549A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				EC70EEB91A070DA80015EE24 /* Info.plist */,
+				EC952A301A0AC90B00A4549A /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		EC70EED11A070DA80015EE24 /* sk3tchTests */ = {
+		EC952A471A0AC90C00A4549A /* sk3tchTests */ = {
 			isa = PBXGroup;
 			children = (
-				EC70EED41A070DA80015EE24 /* sk3tchTests.swift */,
-				EC70EED21A070DA80015EE24 /* Supporting Files */,
+				EC952A4A1A0AC90C00A4549A /* sk3tchTests.swift */,
+				EC952A481A0AC90C00A4549A /* Supporting Files */,
 			);
 			path = sk3tchTests;
 			sourceTree = "<group>";
 		};
-		EC70EED21A070DA80015EE24 /* Supporting Files */ = {
+		EC952A481A0AC90C00A4549A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				EC70EED31A070DA80015EE24 /* Info.plist */,
+				EC952A491A0AC90C00A4549A /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -121,13 +118,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		EC70EEB41A070DA80015EE24 /* sk3tch */ = {
+		EC952A2B1A0AC90B00A4549A /* sk3tch */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EC70EED81A070DA80015EE24 /* Build configuration list for PBXNativeTarget "sk3tch" */;
+			buildConfigurationList = EC952A4E1A0AC90C00A4549A /* Build configuration list for PBXNativeTarget "sk3tch" */;
 			buildPhases = (
-				EC70EEB11A070DA80015EE24 /* Sources */,
-				EC70EEB21A070DA80015EE24 /* Frameworks */,
-				EC70EEB31A070DA80015EE24 /* Resources */,
+				EC952A281A0AC90B00A4549A /* Sources */,
+				EC952A291A0AC90B00A4549A /* Frameworks */,
+				EC952A2A1A0AC90B00A4549A /* Resources */,
 			);
 			buildRules = (
 			);
@@ -135,46 +132,46 @@
 			);
 			name = sk3tch;
 			productName = sk3tch;
-			productReference = EC70EEB51A070DA80015EE24 /* sk3tch.app */;
+			productReference = EC952A2C1A0AC90B00A4549A /* sk3tch.app */;
 			productType = "com.apple.product-type.application";
 		};
-		EC70EECD1A070DA80015EE24 /* sk3tchTests */ = {
+		EC952A431A0AC90C00A4549A /* sk3tchTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EC70EEDB1A070DA80015EE24 /* Build configuration list for PBXNativeTarget "sk3tchTests" */;
+			buildConfigurationList = EC952A511A0AC90C00A4549A /* Build configuration list for PBXNativeTarget "sk3tchTests" */;
 			buildPhases = (
-				EC70EECA1A070DA80015EE24 /* Sources */,
-				EC70EECB1A070DA80015EE24 /* Frameworks */,
-				EC70EECC1A070DA80015EE24 /* Resources */,
+				EC952A401A0AC90C00A4549A /* Sources */,
+				EC952A411A0AC90C00A4549A /* Frameworks */,
+				EC952A421A0AC90C00A4549A /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				EC70EED01A070DA80015EE24 /* PBXTargetDependency */,
+				EC952A461A0AC90C00A4549A /* PBXTargetDependency */,
 			);
 			name = sk3tchTests;
 			productName = sk3tchTests;
-			productReference = EC70EECE1A070DA80015EE24 /* sk3tchTests.xctest */;
+			productReference = EC952A441A0AC90C00A4549A /* sk3tchTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		EC70EEAD1A070DA80015EE24 /* Project object */ = {
+		EC952A241A0AC90B00A4549A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Giovanna Diaz";
 				TargetAttributes = {
-					EC70EEB41A070DA80015EE24 = {
+					EC952A2B1A0AC90B00A4549A = {
 						CreatedOnToolsVersion = 6.1;
 					};
-					EC70EECD1A070DA80015EE24 = {
+					EC952A431A0AC90C00A4549A = {
 						CreatedOnToolsVersion = 6.1;
-						TestTargetID = EC70EEB41A070DA80015EE24;
+						TestTargetID = EC952A2B1A0AC90B00A4549A;
 					};
 				};
 			};
-			buildConfigurationList = EC70EEB01A070DA80015EE24 /* Build configuration list for PBXProject "sk3tch" */;
+			buildConfigurationList = EC952A271A0AC90B00A4549A /* Build configuration list for PBXProject "sk3tch" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -182,29 +179,29 @@
 				en,
 				Base,
 			);
-			mainGroup = EC70EEAC1A070DA80015EE24;
-			productRefGroup = EC70EEB61A070DA80015EE24 /* Products */;
+			mainGroup = EC952A231A0AC90B00A4549A;
+			productRefGroup = EC952A2D1A0AC90B00A4549A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				EC70EEB41A070DA80015EE24 /* sk3tch */,
-				EC70EECD1A070DA80015EE24 /* sk3tchTests */,
+				EC952A2B1A0AC90B00A4549A /* sk3tch */,
+				EC952A431A0AC90C00A4549A /* sk3tchTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		EC70EEB31A070DA80015EE24 /* Resources */ = {
+		EC952A2A1A0AC90B00A4549A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC70EEC41A070DA80015EE24 /* Main.storyboard in Resources */,
-				EC70EEC91A070DA80015EE24 /* LaunchScreen.xib in Resources */,
-				EC70EEC61A070DA80015EE24 /* Images.xcassets in Resources */,
+				EC952A3A1A0AC90C00A4549A /* Main.storyboard in Resources */,
+				EC952A3F1A0AC90C00A4549A /* LaunchScreen.xib in Resources */,
+				EC952A3C1A0AC90C00A4549A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EC70EECC1A070DA80015EE24 /* Resources */ = {
+		EC952A421A0AC90C00A4549A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -214,48 +211,47 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		EC70EEB11A070DA80015EE24 /* Sources */ = {
+		EC952A281A0AC90B00A4549A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC70EEBD1A070DA80015EE24 /* RootViewController.swift in Sources */,
-				EC70EEC11A070DA80015EE24 /* ModelController.swift in Sources */,
-				EC70EEBF1A070DA80015EE24 /* DataViewController.swift in Sources */,
-				EC70EEBB1A070DA80015EE24 /* AppDelegate.swift in Sources */,
+				EC952A371A0AC90B00A4549A /* ViewController.swift in Sources */,
+				EC952A321A0AC90B00A4549A /* AppDelegate.swift in Sources */,
+				EC952A351A0AC90B00A4549A /* sk3tch.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EC70EECA1A070DA80015EE24 /* Sources */ = {
+		EC952A401A0AC90C00A4549A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC70EED51A070DA80015EE24 /* sk3tchTests.swift in Sources */,
+				EC952A4B1A0AC90C00A4549A /* sk3tchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		EC70EED01A070DA80015EE24 /* PBXTargetDependency */ = {
+		EC952A461A0AC90C00A4549A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = EC70EEB41A070DA80015EE24 /* sk3tch */;
-			targetProxy = EC70EECF1A070DA80015EE24 /* PBXContainerItemProxy */;
+			target = EC952A2B1A0AC90B00A4549A /* sk3tch */;
+			targetProxy = EC952A451A0AC90C00A4549A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		EC70EEC21A070DA80015EE24 /* Main.storyboard */ = {
+		EC952A381A0AC90C00A4549A /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				EC70EEC31A070DA80015EE24 /* Base */,
+				EC952A391A0AC90C00A4549A /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		EC70EEC71A070DA80015EE24 /* LaunchScreen.xib */ = {
+		EC952A3D1A0AC90C00A4549A /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				EC70EEC81A070DA80015EE24 /* Base */,
+				EC952A3E1A0AC90C00A4549A /* Base */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
@@ -263,7 +259,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		EC70EED61A070DA80015EE24 /* Debug */ = {
+		EC952A4C1A0AC90C00A4549A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -305,7 +301,7 @@
 			};
 			name = Debug;
 		};
-		EC70EED71A070DA80015EE24 /* Release */ = {
+		EC952A4D1A0AC90C00A4549A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -340,7 +336,7 @@
 			};
 			name = Release;
 		};
-		EC70EED91A070DA80015EE24 /* Debug */ = {
+		EC952A4F1A0AC90C00A4549A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -350,7 +346,7 @@
 			};
 			name = Debug;
 		};
-		EC70EEDA1A070DA80015EE24 /* Release */ = {
+		EC952A501A0AC90C00A4549A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -360,7 +356,7 @@
 			};
 			name = Release;
 		};
-		EC70EEDC1A070DA80015EE24 /* Debug */ = {
+		EC952A521A0AC90C00A4549A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -379,7 +375,7 @@
 			};
 			name = Debug;
 		};
-		EC70EEDD1A070DA80015EE24 /* Release */ = {
+		EC952A531A0AC90C00A4549A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -397,32 +393,45 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		EC70EEB01A070DA80015EE24 /* Build configuration list for PBXProject "sk3tch" */ = {
+		EC952A271A0AC90B00A4549A /* Build configuration list for PBXProject "sk3tch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				EC70EED61A070DA80015EE24 /* Debug */,
-				EC70EED71A070DA80015EE24 /* Release */,
+				EC952A4C1A0AC90C00A4549A /* Debug */,
+				EC952A4D1A0AC90C00A4549A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EC70EED81A070DA80015EE24 /* Build configuration list for PBXNativeTarget "sk3tch" */ = {
+		EC952A4E1A0AC90C00A4549A /* Build configuration list for PBXNativeTarget "sk3tch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				EC70EED91A070DA80015EE24 /* Debug */,
-				EC70EEDA1A070DA80015EE24 /* Release */,
+				EC952A4F1A0AC90C00A4549A /* Debug */,
+				EC952A501A0AC90C00A4549A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
-		EC70EEDB1A070DA80015EE24 /* Build configuration list for PBXNativeTarget "sk3tchTests" */ = {
+		EC952A511A0AC90C00A4549A /* Build configuration list for PBXNativeTarget "sk3tchTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				EC70EEDC1A070DA80015EE24 /* Debug */,
-				EC70EEDD1A070DA80015EE24 /* Release */,
+				EC952A521A0AC90C00A4549A /* Debug */,
+				EC952A531A0AC90C00A4549A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		EC952A331A0AC90B00A4549A /* sk3tch.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				EC952A341A0AC90B00A4549A /* sk3tch.xcdatamodel */,
+			);
+			currentVersion = EC952A341A0AC90B00A4549A /* sk3tch.xcdatamodel */;
+			path = sk3tch.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
-	rootObject = EC70EEAD1A070DA80015EE24 /* Project object */;
+	rootObject = EC952A241A0AC90B00A4549A /* Project object */;
 }

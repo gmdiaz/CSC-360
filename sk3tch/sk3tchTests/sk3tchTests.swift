@@ -2,7 +2,7 @@
 //  sk3tchTests.swift
 //  sk3tchTests
 //
-//  Created by Giovanna Diaz on 11/2/14.
+//  Created by Giovanna Diaz on 11/5/14.
 //  Copyright (c) 2014 Giovanna Diaz. All rights reserved.
 //
 
