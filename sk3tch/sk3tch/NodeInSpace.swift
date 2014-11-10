@@ -17,6 +17,8 @@ class NodeInSpace  {
     // still need to add in gyroscope information
     // prevNode = previous point
     // time = total time elapsed
+    //func calculate(frameRate: Float, prevNode: SCNNode, time: Float, accelerationX: Float, accelerationY: Float, accelerationZ: Float) -> SCNNode {
+        
     func calculate(frameRate: Float, prevNode: SCNNode, time: Float, accelerationX: Float, accelerationY: Float, accelerationZ: Float) -> SCNNode {
         
         // assuming the user will not be moving very fast when constant velocity
