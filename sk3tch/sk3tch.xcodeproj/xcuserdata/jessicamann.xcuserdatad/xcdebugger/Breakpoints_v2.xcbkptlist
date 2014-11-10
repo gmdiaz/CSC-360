@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "sk3tch/NodeInSpace.swift"
+            timestampString = "437345744.69913"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "calculate(_:prevNode:time:accelerationX:accelerationY:accelerationZ:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "sk3tch/Shape.swift"
+            timestampString = "437345744.69913"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "Shape"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "sk3tch.Shape.strokes.setter : Swift.Array&lt;sk3tch.Stroke&gt;"
+                  moduleName = "sk3tch"
+                  urlString = "file:///Users/jessicamann/Documents/CSC-360/sk3tch/sk3tch/Shape.swift"
+                  timestampString = "437345745.004231"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "sk3tch.Shape.init (sk3tch.Shape.Type)(coder : ObjectiveC.NSCoder) -&gt; sk3tch.Shape"
+                  moduleName = "sk3tch"
+                  urlString = "file:///Users/jessicamann/Documents/CSC-360/sk3tch/sk3tch/Shape.swift"
+                  timestampString = "437345745.004504"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "sk3tch.Shape.strokes.materializeForSet : Swift.Array&lt;sk3tch.Stroke&gt;"
+                  moduleName = "sk3tch"
+                  urlString = "file:///Users/jessicamann/Documents/CSC-360/sk3tch/sk3tch/Shape.swift"
+                  timestampString = "437345745.004633"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

@@ -20,6 +20,11 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    // Need to add in gesture recognizer for tapping on screen (signify starting and ending of drawing)
+    
+    // Need to instantiate CoreMotion object for acceleration & gyroscope info 
+    
+    
 
 }
 
