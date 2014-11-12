@@ -21,7 +21,7 @@ class NodeCalculator  {
     // still need to add in gyroscope information
     // prevNode = previous point
     // time = total time elapsed
-    func calculate(frameRate: Float, prevNode: SCNNode, time: Float, accelerationX: Float, accelerationY: Float, accelerationZ: Float) -> SCNNode {
+    func calculate(frameRate: Float, prevNode: SCNNode, time: NSTimeInterval, accelerationX: Float, accelerationY: Float, accelerationZ: Float) -> SCNNode {
         
         // assuming the user will not be moving very fast when constant velocity
         var defaultVelocity : Float = 0.06
@@ -35,19 +35,19 @@ class NodeCalculator  {
         if accelerationX != 0 {
             destX = (accelerationX * frameRate + prevNode.position.x)
         } else {
-            var dx = time * defaultVelocity
+            var dx = Float(time) * defaultVelocity
             destX = prevNode.position.x + dx
         }
         if accelerationY != 0 {
             destY = (accelerationY * frameRate + prevNode.position.y)
         } else {
-            var dy = time * defaultVelocity
+            var dy = Float(time) * defaultVelocity
             destY = prevNode.position.y + dy
         }
         if accelerationZ != 0 {
             destZ = (accelerationZ * frameRate + prevNode.position.z)
         } else {
-            var dz = time * defaultVelocity
+            var dz = Float(time) * defaultVelocity
             destZ = prevNode.position.z + dz
 
         }

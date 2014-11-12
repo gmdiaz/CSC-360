@@ -12,9 +12,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Q7w-Uc-tMS" appends="YES" id="yqk-f9-iaw"/>
+                            <outletCollection property="gestureRecognizers" destination="5TT-1s-Wfv" appends="YES" id="gDe-eS-hc6"/>
+                        </connections>
                     </view>
+                    <connections>
+                        <outlet property="doubleTap" destination="Q7w-Uc-tMS" id="6ua-wF-Xkw"/>
+                        <outlet property="singleTap" destination="5TT-1s-Wfv" id="H0Y-CE-w0j"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Q7w-Uc-tMS">
+                    <connections>
+                        <outlet property="delegate" destination="kh9-bI-dsS" id="Ie1-8s-NYi"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="5TT-1s-Wfv">
+                    <connections>
+                        <outlet property="delegate" destination="kh9-bI-dsS" id="Pra-yz-yOo"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-15" y="412"/>
         </scene>

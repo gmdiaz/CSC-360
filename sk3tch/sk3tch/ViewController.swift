@@ -14,15 +14,13 @@ import UIKit
 import CoreMotion
 import SceneKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     var motionManager : CMMotionManager!
-   
-    // Timer
-    var timer = NSTimer()
 
     // Instance of the start node, at coord(0,0,0)
     var startNode : SCNNode // the node
@@ -48,15 +46,25 @@ class ViewController: UIViewController {
         startNode.position = SCNVector3(x: 0, y: 0, z: 0)
     }
     
+    // Timer
+    var startTime = NSTimeInterval()
+    var elapsedTime = NSTimeInterval()
+    var timer:NSTimer = NSTimer()
+    
+    // Gesture Recongnizer
+    //@IBOutlet var tap: UITapGestureRecognizer!
+    var isTapped = false;
+    
+    @IBOutlet var singleTap: UITapGestureRecognizer!
+    @IBOutlet var doubleTap: UITapGestureRecognizer!
+    
     /*
     * viewDidLoad()
     * - Takes in the accelerometer information and sends it to instance of NodeInSpace where
     *   it is processed and stored on the phone
     * - Commented Out: Takes in the gyroscope data as well
-    *
-    *
     */
-    override func viewDidLoad() {
+    override func viewDidLoad(){
         super.viewDidLoad()
         
         setup()
@@ -65,13 +73,23 @@ class ViewController: UIViewController {
         self.motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue()) {
             (data, error) in
             dispatch_async(dispatch_get_main_queue()) {
+                
+                // Single tap to start the timer
+                self.singleTap = UITapGestureRecognizer(target: self, action: "start:")
+                self.singleTap.delegate = self
+                self.singleTap.numberOfTapsRequired = 1
+                
+                // Double tap to stop the timer
+                self.doubleTap = UITapGestureRecognizer(target: self, action: "stop:")
+                self.doubleTap.numberOfTapsRequired = 2
+                self.doubleTap.delegate = self
 
                 self.sA_x = self.smoothing * self.sA_x + (1.0-self.smoothing) * Float(data.userAcceleration.x)
                 self.sA_y = self.smoothing * self.sA_y + (1.0-self.smoothing) * Float(data.userAcceleration.y)
                 self.sA_z = self.smoothing * self.sA_z + (1.0-self.smoothing) * Float(data.userAcceleration.y)
                 
                 var nextNode : SCNNode
-                nextNode = self.nodeCalc.calculate(self.frameRate, prevNode: self.startNode, time: 0.5, accelerationX: self.sA_x, accelerationY: self.sA_y, accelerationZ: self.sA_z)
+                nextNode = self.nodeCalc.calculate(self.frameRate, prevNode: self.startNode, time: elapsedTime, accelerationX: self.sA_x, accelerationY: self.sA_y, accelerationZ: self.sA_z)
                 
                 //                self.G_x = Float(data.rotationRate.x)
 //                self.G_y = Float(data.rotationRate.x)
@@ -85,6 +103,36 @@ class ViewController: UIViewController {
         
     } // VDL
 
+    @IBAction func start(sender: AnyObject) {
+        if (!timer.valid) {
+            let aSelector : Selector = "updateTime"
+            timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: aSelector, userInfo: nil, repeats: true)
+            startTime = NSDate.timeIntervalSinceReferenceDate()
+        }
+    }
+    
+    @IBAction func stop(sender: AnyObject) {
+        timer.invalidate()
+    }
+    
+    func updateTime() {
+        var currentTime = NSDate.timeIntervalSinceReferenceDate()
+        
+        //Find the difference between current time and start time.
+        elapsedTime =  currentTime - startTime
+        
+        //calculate the minutes in elapsed time.
+        //let minutes = UInt8(elapsedTime / 60.0)
+        //elapsedTime -= (NSTimeInterval(minutes) * 60)
+        
+        //calculate the seconds in elapsed time.
+        let seconds = UInt8(elapsedTime)
+        elapsedTime -= NSTimeInterval(seconds)
+        
+        //find out the fraction of milliseconds to be displayed.
+        //let fraction = UInt8(elapsedTime * 100)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
