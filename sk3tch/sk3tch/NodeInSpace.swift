@@ -14,6 +14,17 @@ import SceneKit
 
 class NodeInSpace  {
     
+    var x : Float
+    var y : Float
+    var z : Float
+    
+    init(x: Float, y: Float, z: Float) {
+        self.x = x
+        self.y = y
+        self.z = z
+    }
+    
+    
     // still need to add in gyroscope information
     // prevNode = previous point
     // time = total time elapsed
