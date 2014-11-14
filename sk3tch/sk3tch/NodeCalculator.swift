@@ -1,4 +1,3 @@
-//
 //  NodeInSpace.swift
 //  sk3tch
 //
@@ -6,7 +5,7 @@
 //  Copyright (c) 2014 Giovanna Diaz. All rights reserved.
 //
 //  This class calculates the position of the node in space given acceleration, time, and gyroscope information.
-//  The nodes locations are stored elsewhere (make sure it is stored in order, as that will be how we know which ones make a segment!)
+//  The nodes locations are stored elseswhere (make sure it is stored in order, as that will be how we know which ones make a segment!)
 
 
 import Foundation
@@ -31,25 +30,34 @@ class NodeCalculator  {
         var destY : Float
         var destZ : Float
         
+        // take this out later
+        let time = 5
+        
         // depending on if there is acceleration or if velocity is constant
         if accelerationX != 0 {
-            destX = (accelerationX * frameRate + prevNode.position.x)
+            var dx = 0.5 * accelerationX * Float(time) * Float(time)
+            destX = dx + prevNode.position.x
+            //destX = (accelerationX * frameRate + prevNode.position.x)
         } else {
             var dx = Float(time) * defaultVelocity
             destX = prevNode.position.x + dx
         }
         if accelerationY != 0 {
-            destY = (accelerationY * frameRate + prevNode.position.y)
+            var dy = 0.5 * accelerationY * Float(time) * Float(time)
+            destY = dy + prevNode.position.y
+            //destY = (accelerationY * frameRate + prevNode.position.y)
         } else {
             var dy = Float(time) * defaultVelocity
             destY = prevNode.position.y + dy
         }
         if accelerationZ != 0 {
-            destZ = (accelerationZ * frameRate + prevNode.position.z)
+            var dz = 0.5 * accelerationZ * Float(time) * Float(time)
+            destZ = dz + prevNode.position.z
+            //destZ = (accelerationZ * frameRate + prevNode.position.z)
         } else {
             var dz = Float(time) * defaultVelocity
             destZ = prevNode.position.z + dz
-
+            
         }
         
         var node : SCNNode = SCNNode() // the node
@@ -57,20 +65,31 @@ class NodeCalculator  {
         
         // print out segment start & end location
         
-        print("start: " + prevNode.position.stringValue + " end: " + node.position.stringValue)
+        println("start: " + prevNode.position.stringValue + " end: " + node.position.stringValue)
+        //println("time is: " + Float(time).stringValue)
         
         return node
     }
     
 }
 
+extension Float {
+    var stringValue : String {
+        return NSString(format: "%.2f", self)
+    }
+}
+
 // Extending SCNVector3 to print as string
 extension SCNVector3 {
     var stringValue: String {
         var result : String = ""
+        result += "("
         result += NSString(format: "%.2f", self.x)
+        result += ", "
         result += NSString(format: "%.2f", self.y)
+        result += ", "
         result += NSString(format: "%.2f", self.z)
+        result += ")"
         return result
     }
 }

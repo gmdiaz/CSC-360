@@ -14,18 +14,18 @@ import UIKit
 import CoreMotion
 import SceneKit
 
+
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
-
-    required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
-    var motionManager : CMMotionManager!
-
+    
+    var motionManager : CMMotionManager! = CMMotionManager()
+    
+    
     // Instance of the start node, at coord(0,0,0)
-    var startNode : SCNNode // the node
-    var nodeCalc : NodeCalculator
-
+    var startNode : SCNNode! = SCNNode() // the node
+    var nodeCalc : NodeCalculator! = NodeCalculator()
+    
+    
     // For Smothing the data
     // sA_x = smoothedAccel_x  | Gx_Roll = smoothedGryo_x
     var smoothing :Float = 0.99
@@ -39,12 +39,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     // Variables used for getting accelerometer data
     var frameRate : Float  = 30.0
-    
-    func setup() {
-        nodeCalc = NodeCalculator()
-        startNode = SCNNode()
-        startNode.position = SCNVector3(x: 0, y: 0, z: 0)
-    }
     
     // Timer
     var startTime = NSTimeInterval()
@@ -66,8 +60,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad(){
         super.viewDidLoad()
         
-        setup()
-        
         // Taking in Device Data
         self.motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue()) {
             (data, error) in
@@ -82,7 +74,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 self.doubleTap = UITapGestureRecognizer(target: self, action: "stop:")
                 self.doubleTap.numberOfTapsRequired = 2
                 self.doubleTap.delegate = self
-
+                
                 self.sA_x = self.smoothing * self.sA_x + (1.0-self.smoothing) * Float(data.userAcceleration.x)
                 self.sA_y = self.smoothing * self.sA_y + (1.0-self.smoothing) * Float(data.userAcceleration.y)
                 self.sA_z = self.smoothing * self.sA_z + (1.0-self.smoothing) * Float(data.userAcceleration.y)
@@ -90,18 +82,18 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 var nextNode : SCNNode
                 nextNode = self.nodeCalc.calculate(self.frameRate, prevNode: self.startNode, time: self.elapsedTime, accelerationX: self.sA_x, accelerationY: self.sA_y, accelerationZ: self.sA_z)
                 
-//                self.G_x = Float(data.rotationRate.x)
-//                self.G_y = Float(data.rotationRate.x)
-//                self.G_z = Float(data.rotationRate.x)
+                //                self.G_x = Float(data.rotationRate.x)
+                //                self.G_y = Float(data.rotationRate.x)
+                //                self.G_z = Float(data.rotationRate.x)
                 
                 // set the next node (which is the newest node) to be the startNode
                 self.startNode = nextNode
-            
+                
             }
         }
         
     } // VDL
-
+    
     @IBAction func start(sender: AnyObject) {
         if (!timer.valid) {
             let aSelector : Selector = "updateTime"
@@ -137,6 +129,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-
+    
 }
 
