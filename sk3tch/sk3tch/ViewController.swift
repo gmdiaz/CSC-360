@@ -54,7 +54,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     // Gesture Recongnizer
     //@IBOutlet var tap: UITapGestureRecognizer!
     var isTapped = false;
-    
     @IBOutlet var singleTap: UITapGestureRecognizer!
     @IBOutlet var doubleTap: UITapGestureRecognizer!
     
@@ -89,9 +88,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 self.sA_z = self.smoothing * self.sA_z + (1.0-self.smoothing) * Float(data.userAcceleration.y)
                 
                 var nextNode : SCNNode
-                nextNode = self.nodeCalc.calculate(self.frameRate, prevNode: self.startNode, time: elapsedTime, accelerationX: self.sA_x, accelerationY: self.sA_y, accelerationZ: self.sA_z)
+                nextNode = self.nodeCalc.calculate(self.frameRate, prevNode: self.startNode, time: self.elapsedTime, accelerationX: self.sA_x, accelerationY: self.sA_y, accelerationZ: self.sA_z)
                 
-                //                self.G_x = Float(data.rotationRate.x)
+//                self.G_x = Float(data.rotationRate.x)
 //                self.G_y = Float(data.rotationRate.x)
 //                self.G_z = Float(data.rotationRate.x)
                 

@@ -11,11 +11,7 @@ import Foundation
 class Shape : NSObject, NSCoding {
     var strokes = [Stroke]()
     
-
-    
     required init(coder aDecoder: NSCoder) {
-        
-
     }
 
     func encodeWithCoder(aCoder: NSCoder) {
@@ -29,8 +25,6 @@ class Stroke : NSObject, NSCoding  {
     var points = [Point]()
     
     required init(coder aDecoder: NSCoder) {
-        
-        
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
