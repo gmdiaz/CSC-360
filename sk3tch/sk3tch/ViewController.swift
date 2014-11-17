@@ -16,8 +16,6 @@ import SceneKit
 
 
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
-    
-    
     var motionManager : CMMotionManager! = CMMotionManager()
     
     
@@ -60,31 +58,33 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad(){
         super.viewDidLoad()
         
+        // Single tap to start the timer
+        self.singleTap = UITapGestureRecognizer(target: self, action: "start:")
+        self.singleTap.delegate = self
+        self.singleTap.numberOfTapsRequired = 1
+        
+        // Double tap to stop the timer
+        self.doubleTap = UITapGestureRecognizer(target: self, action: "stop:")
+        self.doubleTap.numberOfTapsRequired = 2
+        self.doubleTap.delegate = self
+        
+        
         // Taking in Device Data
         self.motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue()) {
             (data, error) in
             dispatch_async(dispatch_get_main_queue()) {
-                
-                // Single tap to start the timer
-                self.singleTap = UITapGestureRecognizer(target: self, action: "start:")
-                self.singleTap.delegate = self
-                self.singleTap.numberOfTapsRequired = 1
-                
-                // Double tap to stop the timer
-                self.doubleTap = UITapGestureRecognizer(target: self, action: "stop:")
-                self.doubleTap.numberOfTapsRequired = 2
-                self.doubleTap.delegate = self
                 
                 self.sA_x = self.smoothing * self.sA_x + (1.0-self.smoothing) * Float(data.userAcceleration.x)
                 self.sA_y = self.smoothing * self.sA_y + (1.0-self.smoothing) * Float(data.userAcceleration.y)
                 self.sA_z = self.smoothing * self.sA_z + (1.0-self.smoothing) * Float(data.userAcceleration.y)
                 
                 var nextNode : SCNNode
-                nextNode = self.nodeCalc.calculate(self.frameRate, prevNode: self.startNode, time: self.elapsedTime, accelerationX: self.sA_x, accelerationY: self.sA_y, accelerationZ: self.sA_z)
                 
-                //                self.G_x = Float(data.rotationRate.x)
-                //                self.G_y = Float(data.rotationRate.x)
-                //                self.G_z = Float(data.rotationRate.x)
+                nextNode = self.nodeCalc.calculate(self.frameRate, prevNode: self.startNode, elapsedTime: self.elapsedTime, accelerationX: self.sA_x, accelerationY: self.sA_y, accelerationZ: self.sA_z)
+                
+//              self.G_x = Float(data.rotationRate.x)
+//              self.G_y = Float(data.rotationRate.x)
+//              self.G_z = Float(data.rotationRate.x)
                 
                 // set the next node (which is the newest node) to be the startNode
                 self.startNode = nextNode
@@ -131,4 +131,3 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     
 }
-
