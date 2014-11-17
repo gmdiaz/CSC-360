@@ -26,11 +26,13 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="Q7w-Uc-tMS">
                     <connections>
+                        <action selector="onTap:" destination="vXZ-lx-hvc" id="wIA-DY-H6d"/>
                         <outlet property="delegate" destination="kh9-bI-dsS" id="Ie1-8s-NYi"/>
                     </connections>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="5TT-1s-Wfv">
                     <connections>
+                        <action selector="onTap:" destination="vXZ-lx-hvc" id="wVd-vt-Yma"/>
                         <outlet property="delegate" destination="kh9-bI-dsS" id="Pra-yz-yOo"/>
                     </connections>
                 </tapGestureRecognizer>

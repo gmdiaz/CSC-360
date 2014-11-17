@@ -19,17 +19,19 @@ import Foundation
 }*/
 
 class Stroke : NSObject, NSCoding  {
-    var points = [SCNNode]()
     // Reference: http://stackoverflow.com/questions/25311098/archive-array-of-optional-structs-with-nscoding-in-swift
+
+    var points = [SCNNode]()
+    
+    override init() {
+        super.init()
+    }
     
     required init(coder aDecoder: NSCoder) {
         self.points = aDecoder.decodeObjectForKey("pointArray") as [SCNNode]
-        //self.points = aDecoder.decodeArrayOfObjCType(SCNNode, count: points.count, at: 0)
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
-        //aCoder.encodeObject(runSamples.bridgeToObjectiveC(), forKey: "runSamples")
-        //aCoder.encodeArrayOfObjCType(SCNNode, count: points.count, at: 0)
         aCoder.encodeObject(points, forKey: "pointArray")
     }
 

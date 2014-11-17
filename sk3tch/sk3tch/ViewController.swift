@@ -19,15 +19,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var motionManager : CMMotionManager! = CMMotionManager()
     
     // Instance of the start node, at coord(0,0,0)
-    
     var startNode : SCNNode! = SCNNode() // the node
     var nodeCalc : NodeCalculator! = NodeCalculator()
     
-    // Create array of nodes to be saved
-    var nodeArray : Stroke!
+    // Instance of Shape for saving
+    var shape = Stroke()
     
-    // For Smothing the data
-    // sA_x = smoothedAccel_x  | Gx_Roll = smoothedGryo_x
+    // For Smothing the data : sA_x = smoothedAccel_x  | Gx_Roll = smoothedGryo_x
     var smoothing :Float = 0.99
     var sA_x :Float = 0
     var sA_y :Float = 0
@@ -46,11 +44,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var timer : NSTimer = NSTimer()
     
     // Gesture Recongnizer
-    var isTapped : Boolean = false
+    var isTapped = false
     @IBOutlet var singleTap: UITapGestureRecognizer! = UITapGestureRecognizer()
     @IBOutlet var doubleTap: UITapGestureRecognizer! = UITapGestureRecognizer()
     
-      /*
+    /*
     * viewDidLoad()
     * - Takes in the accelerometer information and sends it to instance of NodeInSpace where
     *   it is processed and stored on the phone
@@ -59,23 +57,34 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad(){
         super.viewDidLoad()
         
-//        // Single tap to start the timer
+        // Single tap to start the timer
         self.singleTap.delegate = self
         self.singleTap.numberOfTapsRequired = 1
-//
-//        // Double tap to stop the timer
+
+        // Double tap to stop the timer
         self.doubleTap.numberOfTapsRequired = 2
         self.doubleTap.delegate = self
         
+        self.shape.points.append(startNode)
+
     } // VDL
     
     @IBAction func onTap(recognizer:UITapGestureRecognizer) {
         if recognizer.numberOfTapsRequired==1 && recognizer.state == .Ended {
             if !isTapped && !timer.valid {
+                // The scren was tapped
                 self.isTapped = true
+                
+                // Timer
                 let aSelector : Selector = "updateTime"
                 timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: aSelector, userInfo: nil, repeats: true)
                 startTime = NSDate.timeIntervalSinceReferenceDate()
+                
+                if timer.valid {
+                    println("The screen was tapped once - timer started")
+                } else {
+                    println("shit happened")
+                }
                 
                 // Taking in Device Data
                 self.motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue()) {
@@ -94,16 +103,29 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                         //              self.G_y = Float(data.rotationRate.x)
                         //              self.G_z = Float(data.rotationRate.x)
                         
+                        //add the nextNode the SCNNode Array
+                        self.shape.points.append(nextNode)
+                        
                         // set the next node (which is the newest node) to be the startNode
                         self.startNode = nextNode
                         
-                    }
-                }
+                    } // callback
+                } // startDeviceMotion
 
             }
         } else if recognizer.numberOfTapsRequired==2 && recognizer.state == .Ended {
+            println("The screen was tapped twice - timer ended")
+            //Stop the updates from the acceleromtere to get out of callback(?)
+            self.motionManager.stopDeviceMotionUpdates()
+
+            // Stop the timer
             timer.invalidate()
+            
+            // Change Boolean
             self.isTapped = false
+            
+            //Encode the SCNNOde "Shape"
+            self.shape.saveToFile()
         }
     }
     
@@ -129,6 +151,5 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
 }
