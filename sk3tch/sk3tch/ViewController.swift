@@ -18,11 +18,12 @@ import SceneKit
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var motionManager : CMMotionManager! = CMMotionManager()
     
-    
     // Instance of the start node, at coord(0,0,0)
     var startNode : SCNNode! = SCNNode() // the node
     var nodeCalc : NodeCalculator! = NodeCalculator()
     
+    // Create array of nodes to be saved
+    var nodeArray : Stroke!
     
     // For Smothing the data
     // sA_x = smoothedAccel_x  | Gx_Roll = smoothedGryo_x
@@ -67,7 +68,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         self.doubleTap = UITapGestureRecognizer(target: self, action: "stop:")
         self.doubleTap.numberOfTapsRequired = 2
         self.doubleTap.delegate = self
-        
         
         // Taking in Device Data
         self.motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue()) {

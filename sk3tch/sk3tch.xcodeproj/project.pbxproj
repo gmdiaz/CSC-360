@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		B9AC65BC1A1144FF00144224 /* NodeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AC65BB1A1144FF00144224 /* NodeCalculator.swift */; };
-		B9AC65BE1A1153F300144224 /* StoreNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AC65BD1A1153F300144224 /* StoreNode.swift */; };
 		B9AC65C11A11557A00144224 /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AC65C01A11557A00144224 /* Shape.swift */; };
 		EC952A321A0AC90B00A4549A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC952A311A0AC90B00A4549A /* AppDelegate.swift */; };
 		EC952A351A0AC90B00A4549A /* sk3tch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EC952A331A0AC90B00A4549A /* sk3tch.xcdatamodeld */; };
@@ -31,7 +30,6 @@
 
 /* Begin PBXFileReference section */
 		B9AC65BB1A1144FF00144224 /* NodeCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeCalculator.swift; sourceTree = "<group>"; };
-		B9AC65BD1A1153F300144224 /* StoreNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreNode.swift; sourceTree = "<group>"; };
 		B9AC65C01A11557A00144224 /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
 		EC952A2C1A0AC90B00A4549A /* sk3tch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sk3tch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC952A301A0AC90B00A4549A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -102,7 +100,6 @@
 				EC952A331A0AC90B00A4549A /* sk3tch.xcdatamodeld */,
 				EC952A2F1A0AC90B00A4549A /* Supporting Files */,
 				B9AC65BB1A1144FF00144224 /* NodeCalculator.swift */,
-				B9AC65BD1A1153F300144224 /* StoreNode.swift */,
 			);
 			path = sk3tch;
 			sourceTree = "<group>";
@@ -236,7 +233,6 @@
 				B9AC65C11A11557A00144224 /* Shape.swift in Sources */,
 				B9AC65BC1A1144FF00144224 /* NodeCalculator.swift in Sources */,
 				EC952A321A0AC90B00A4549A /* AppDelegate.swift in Sources */,
-				B9AC65BE1A1153F300144224 /* StoreNode.swift in Sources */,
 				EC952A351A0AC90B00A4549A /* sk3tch.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

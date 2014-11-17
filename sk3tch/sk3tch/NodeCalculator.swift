@@ -12,7 +12,6 @@ import Foundation
 import SceneKit
 
 class NodeCalculator  {
-    
     init() {
         
     }
@@ -66,7 +65,6 @@ class NodeCalculator  {
         node.position = SCNVector3(x: destX, y: destY, z: destZ)
         
         // print out segment start & end location
-        
         println("start: " + prevNode.position.stringValue + " end: " + node.position.stringValue)
         //println("time is: " + Float(time).stringValue)
         
@@ -80,6 +78,7 @@ extension Float {
         return NSString(format: "%.2f", self)
     }
 }
+
 
 // Extending SCNVector3 to print as string
 extension SCNVector3 {
@@ -95,8 +94,5 @@ extension SCNVector3 {
         return result
     }
 }
-
-
-
 
 
