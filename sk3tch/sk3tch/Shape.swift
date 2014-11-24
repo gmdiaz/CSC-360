@@ -54,27 +54,3 @@ class Stroke : NSObject, NSCoding  {
     }
 
 }
-/*
-class Point : NSObject, NSCoding {
-    var x : Float
-    var y : Float
-    var z : Float
-    
-    init(x: Float, y:Float, z:Float) {
-        self.x = x
-        self.y = y
-        self.z = z
-    }
-    
-    required init(coder aDecoder: NSCoder) {
-        self.x = aDecoder.decodeFloatForKey("x")
-        self.y = aDecoder.decodeFloatForKey("y")
-        self.z = aDecoder.decodeFloatForKey("z")
-    }
-    
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeFloat(x, forKey: "x")
-        aCoder.encodeFloat(x, forKey: "y")
-        aCoder.encodeFloat(x, forKey: "z")
-    }
-}*/
