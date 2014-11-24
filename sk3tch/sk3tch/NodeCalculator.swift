@@ -21,6 +21,9 @@ class NodeCalculator  {
     // time = total time elapsed
     func calculate(frameRate: Float, prevNode: SCNNode, elapsedTime: NSTimeInterval, accelerationX: Float, accelerationY: Float, accelerationZ: Float) -> SCNNode {
         
+        //println(accelerationX.stringValue + "," + accelerationY.stringValue + "," + accelerationZ.stringValue)
+        
+        
         // assuming the user will not be moving very fast when constant velocity
         var defaultVelocity : Float = 0.06
         
@@ -29,34 +32,31 @@ class NodeCalculator  {
         var destY : Float
         var destZ : Float
         
-        // take this out later
-        let time = 5
-        
         // depending on if there is acceleration or if velocity is constant
         if accelerationX != 0 {
-            var dx = 0.5 * accelerationX * Float(time) * Float(time)
+            var dx = 0.5 * accelerationX * Float(elapsedTime) * Float(elapsedTime)
             destX = dx + prevNode.position.x
             //destX = (accelerationX * frameRate + prevNode.position.x)
         } else {
-            var dx = Float(time) * defaultVelocity
+            var dx = Float(elapsedTime) * defaultVelocity
             destX = prevNode.position.x + dx
         }
         
         if accelerationY != 0 {
-            var dy = 0.5 * accelerationY * Float(time) * Float(time)
+            var dy = 0.5 * accelerationY * Float(elapsedTime) * Float(elapsedTime)
             destY = dy + prevNode.position.y
             //destY = (accelerationY * frameRate + prevNode.position.y)
         } else {
-            var dy = Float(time) * defaultVelocity
+            var dy = Float(elapsedTime) * defaultVelocity
             destY = prevNode.position.y + dy
         }
         
         if accelerationZ != 0 {
-            var dz = 0.5 * accelerationZ * Float(time) * Float(time)
+            var dz = 0.5 * accelerationZ * Float(elapsedTime) * Float(elapsedTime)
             destZ = dz + prevNode.position.z
             //destZ = (accelerationZ * frameRate + prevNode.position.z)
         } else {
-            var dz = Float(time) * defaultVelocity
+            var dz = Float(elapsedTime) * defaultVelocity
             destZ = prevNode.position.z + dz
             
         }

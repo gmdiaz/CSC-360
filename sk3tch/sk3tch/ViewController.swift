@@ -18,6 +18,11 @@ import SceneKit
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var motionManager : CMMotionManager! = CMMotionManager()
     
+    //
+    // Test Text
+    //
+    @IBOutlet weak var dataFromFile: UITextView!
+    
     // Instance of the start node, at coord(0,0,0)
     var startNode : SCNNode! = SCNNode() // the node
     var nodeCalc : NodeCalculator! = NodeCalculator()
@@ -95,6 +100,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                         self.sA_y = self.smoothing * self.sA_y + (1.0-self.smoothing) * Float(data.userAcceleration.y)
                         self.sA_z = self.smoothing * self.sA_z + (1.0-self.smoothing) * Float(data.userAcceleration.y)
                         
+                        
                         var nextNode : SCNNode
                         
                         nextNode = self.nodeCalc.calculate(self.frameRate, prevNode: self.startNode, elapsedTime: self.elapsedTime, accelerationX: self.sA_x, accelerationY: self.sA_y, accelerationZ: self.sA_z)
@@ -126,6 +132,15 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             
             //Encode the SCNNOde "Shape"
             self.shape.saveToFile()
+            
+            
+            
+/*
+            // Test decoding the "Shape"
+            if let theStroke = Stroke.readFromFile() {
+                /*firstName.text = person.firstName
+                lastName.text = person.lastName*/
+            }*/
         }
     }
     
@@ -133,7 +148,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         var currentTime = NSDate.timeIntervalSinceReferenceDate()
         
         //Find the difference between current time and start time.
-        elapsedTime =  currentTime - startTime
+        self.elapsedTime =  currentTime - startTime
         
         //calculate the minutes in elapsed time.
         //let minutes = UInt8(elapsedTime / 60.0)
@@ -141,7 +156,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         
         //calculate the seconds in elapsed time.
         let seconds = UInt8(elapsedTime)
-        elapsedTime -= NSTimeInterval(seconds)
+        self.elapsedTime -= NSTimeInterval(seconds)
         
         //find out the fraction of milliseconds to be displayed.
         //let fraction = UInt8(elapsedTime * 100)
