@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		B9AC65BC1A1144FF00144224 /* NodeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AC65BB1A1144FF00144224 /* NodeCalculator.swift */; };
 		B9AC65C11A11557A00144224 /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AC65C01A11557A00144224 /* Shape.swift */; };
+		B9DAF4EE1A2CE04A00952A65 /* PrimitiveScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DAF4ED1A2CE04A00952A65 /* PrimitiveScene.swift */; };
+		B9DAF4F01A2CE50700952A65 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9DAF4EF1A2CE50700952A65 /* SceneKit.framework */; };
 		EC952A321A0AC90B00A4549A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC952A311A0AC90B00A4549A /* AppDelegate.swift */; };
 		EC952A351A0AC90B00A4549A /* sk3tch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EC952A331A0AC90B00A4549A /* sk3tch.xcdatamodeld */; };
 		EC952A371A0AC90B00A4549A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC952A361A0AC90B00A4549A /* ViewController.swift */; };
@@ -31,6 +33,8 @@
 /* Begin PBXFileReference section */
 		B9AC65BB1A1144FF00144224 /* NodeCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeCalculator.swift; sourceTree = "<group>"; };
 		B9AC65C01A11557A00144224 /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
+		B9DAF4ED1A2CE04A00952A65 /* PrimitiveScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PrimitiveScene.swift; path = ../PrimitiveScene.swift; sourceTree = "<group>"; };
+		B9DAF4EF1A2CE50700952A65 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		EC952A2C1A0AC90B00A4549A /* sk3tch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sk3tch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC952A301A0AC90B00A4549A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EC952A311A0AC90B00A4549A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9DAF4F01A2CE50700952A65 /* SceneKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +78,7 @@
 		EC952A231A0AC90B00A4549A = {
 			isa = PBXGroup;
 			children = (
+				B9DAF4EF1A2CE50700952A65 /* SceneKit.framework */,
 				EC952A2E1A0AC90B00A4549A /* sk3tch */,
 				EC952A471A0AC90C00A4549A /* sk3tchTests */,
 				EC952A2D1A0AC90B00A4549A /* Products */,
@@ -91,6 +97,7 @@
 		EC952A2E1A0AC90B00A4549A /* sk3tch */ = {
 			isa = PBXGroup;
 			children = (
+				B9DAF4ED1A2CE04A00952A65 /* PrimitiveScene.swift */,
 				B9AC65BF1A11556400144224 /* ShapeModel */,
 				EC952A311A0AC90B00A4549A /* AppDelegate.swift */,
 				EC952A361A0AC90B00A4549A /* ViewController.swift */,
@@ -229,6 +236,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9DAF4EE1A2CE04A00952A65 /* PrimitiveScene.swift in Sources */,
 				EC952A371A0AC90B00A4549A /* ViewController.swift in Sources */,
 				B9AC65C11A11557A00144224 /* Shape.swift in Sources */,
 				B9AC65BC1A1144FF00144224 /* NodeCalculator.swift in Sources */,

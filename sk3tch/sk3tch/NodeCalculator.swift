@@ -33,33 +33,18 @@ class NodeCalculator  {
         var destZ : Float
         
         // depending on if there is acceleration or if velocity is constant
-        if accelerationX != 0 {
-            var dx = 0.5 * accelerationX * Float(elapsedTime) * Float(elapsedTime)
-            destX = dx + prevNode.position.x
-            //destX = (accelerationX * frameRate + prevNode.position.x)
-        } else {
-            var dx = Float(elapsedTime) * defaultVelocity
-            destX = prevNode.position.x + dx
-        }
+        var dx = 0.5 * accelerationX * Float(elapsedTime) * Float(elapsedTime)
+        destX = dx + prevNode.position.x
+        //destX = (accelerationX * frameRate + prevNode.position.x)
         
-        if accelerationY != 0 {
-            var dy = 0.5 * accelerationY * Float(elapsedTime) * Float(elapsedTime)
-            destY = dy + prevNode.position.y
-            //destY = (accelerationY * frameRate + prevNode.position.y)
-        } else {
-            var dy = Float(elapsedTime) * defaultVelocity
-            destY = prevNode.position.y + dy
-        }
-        
-        if accelerationZ != 0 {
-            var dz = 0.5 * accelerationZ * Float(elapsedTime) * Float(elapsedTime)
-            destZ = dz + prevNode.position.z
-            //destZ = (accelerationZ * frameRate + prevNode.position.z)
-        } else {
-            var dz = Float(elapsedTime) * defaultVelocity
-            destZ = prevNode.position.z + dz
+        var dy = 0.5 * accelerationY * Float(elapsedTime) * Float(elapsedTime)
+        destY = dy + prevNode.position.y
+        //destY = (accelerationY * frameRate + prevNode.position.y)
             
-        }
+        var dz = 0.5 * accelerationZ * Float(elapsedTime) * Float(elapsedTime)
+        destZ = dz + prevNode.position.z
+        //destZ = (accelerationZ * frameRate + prevNode.position.z)
+       
         
         var node : SCNNode = SCNNode() // the node
         node.position = SCNVector3(x: destX, y: destY, z: destZ)

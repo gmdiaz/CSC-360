@@ -18,10 +18,15 @@ import SceneKit
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var motionManager : CMMotionManager! = CMMotionManager()
     
+//    // the frame
+//    var origin : CGPoint = CGPoint() // the origin of the frame rectangle, (0,0)
+//    var size : CGSize = CGSize(width: CGFloat(10), height: CGFloat(10)) // needs to redo the point size (width, height)
+//    var frameRect : CGRect = CGRect(origin: origin, size: size) // the frame, should be the entire phone screen
+
+    
     //
     // Test Text
     //
-    @IBOutlet weak var dataFromFile: UITextView!
     
     // Instance of the start node, at coord(0,0,0)
     var startNode : SCNNode! = SCNNode() // the node
@@ -59,8 +64,18 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     *   it is processed and stored on the phone
     * - Commented Out: Takes in the gyroscope data as well
     */
-    override func viewDidLoad(){
+    override func viewDidLoad() {
         super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+//        
+//        let scnView = self.view as SCNView
+//        let scene = PrimitiveScene()
+//        scnView.scene = scene
+//        
+//        scnView.backgroundColor = UIColor.blackColor()
+//        scnView.autoenablesDefaultLighting = true
+//        scnView.allowsCameraControl = true
+
         
         // Single tap to start the timer
         self.singleTap.delegate = self
@@ -98,7 +113,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                         
                         self.sA_x = self.smoothing * self.sA_x + (1.0-self.smoothing) * Float(data.userAcceleration.x)
                         self.sA_y = self.smoothing * self.sA_y + (1.0-self.smoothing) * Float(data.userAcceleration.y)
-                        self.sA_z = self.smoothing * self.sA_z + (1.0-self.smoothing) * Float(data.userAcceleration.y)
+                        self.sA_z = self.smoothing * self.sA_z + (1.0-self.smoothing) * Float(data.userAcceleration.z)
                         
                         
                         var nextNode : SCNNode
@@ -133,6 +148,17 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             //Encode the SCNNOde "Shape"
             self.shape.saveToFile()
             
+            
+            // set scene to be custom scene
+            let scnView = self.view as SCNView
+            let scene = PrimitiveScene()
+            scene.addPoints(shape.points)
+            scnView.scene = scene
+            
+            scnView.backgroundColor = UIColor.blackColor()
+            scnView.autoenablesDefaultLighting = true
+            scnView.allowsCameraControl = true
+
             
             
 /*

@@ -22,7 +22,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "sk3tch/Shape.swift"
@@ -30,51 +30,35 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "12"
-            endingLineNumber = "12"
-            landmarkName = "Shape"
-            landmarkType = "3">
+            endingLineNumber = "12">
             <Locations>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "sk3tch.Shape.strokes.setter : Swift.Array&lt;sk3tch.Stroke&gt;"
+                  symbolName = "sk3tch.Stroke.__deallocating_deinit"
                   moduleName = "sk3tch"
                   urlString = "file:///Users/jessicamann/Documents/CSC-360/sk3tch/sk3tch/Shape.swift"
-                  timestampString = "437345745.004231"
+                  timestampString = "439153208.259031"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "12"
-                  endingLineNumber = "12"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
                   offsetFromSymbolStart = "16">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "sk3tch.Shape.init (sk3tch.Shape.Type)(coder : ObjectiveC.NSCoder) -&gt; sk3tch.Shape"
+                  symbolName = "@objc sk3tch.Stroke.__ivar_destroyer"
                   moduleName = "sk3tch"
                   urlString = "file:///Users/jessicamann/Documents/CSC-360/sk3tch/sk3tch/Shape.swift"
-                  timestampString = "437345745.004504"
+                  timestampString = "439153208.259234"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "12"
-                  endingLineNumber = "12"
-                  offsetFromSymbolStart = "20">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "sk3tch.Shape.strokes.materializeForSet : Swift.Array&lt;sk3tch.Stroke&gt;"
-                  moduleName = "sk3tch"
-                  urlString = "file:///Users/jessicamann/Documents/CSC-360/sk3tch/sk3tch/Shape.swift"
-                  timestampString = "437345745.004633"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "12"
-                  endingLineNumber = "12"
-                  offsetFromSymbolStart = "16">
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "28">
                </Location>
             </Locations>
          </BreakpointContent>
