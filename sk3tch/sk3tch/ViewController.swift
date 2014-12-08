@@ -87,7 +87,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 if timer.valid {
                     println("The screen was tapped once - timer started")
                 } else {
-                    println("shit happened")
+                    println("shit happened -Jess")
                 }
                 
                 // Taking in Device Data
@@ -136,6 +136,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             self.shape.saveToFile()
             
             
+            // EVERYTHING TO DO WITH THE 3D RENDERING SCENE
+
             // set scene to be custom scene
             let scnView = self.view as SCNView
             let scene = PrimitiveScene()
@@ -147,11 +149,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             scnView.autoenablesDefaultLighting = true
             scnView.allowsCameraControl = true
 
+            /***************************/
             
             
-/*
             // Test decoding the "Shape"
-            if let theStroke = Stroke.readFromFile() {
+            /* if let theStroke = Stroke.readFromFile() {
                 /*firstName.text = person.firstName
                 lastName.text = person.lastName*/
             }*/
