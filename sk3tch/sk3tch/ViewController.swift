@@ -17,17 +17,7 @@ import SceneKit
 
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var motionManager : CMMotionManager! = CMMotionManager()
-    
-//    // the frame
-//    var origin : CGPoint = CGPoint() // the origin of the frame rectangle, (0,0)
-//    var size : CGSize = CGSize(width: CGFloat(10), height: CGFloat(10)) // needs to redo the point size (width, height)
-//    var frameRect : CGRect = CGRect(origin: origin, size: size) // the frame, should be the entire phone screen
-
-    
-    //
-    // Test Text
-    //
-    
+        
     // Instance of the start node, at coord(0,0,0)
     var startNode : SCNNode! = SCNNode() // the node
     var nodeCalc : NodeCalculator! = NodeCalculator()
@@ -55,6 +45,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     // Gesture Recongnizer
     var isTapped = false
+    var hasCollectedData = false
     @IBOutlet var singleTap: UITapGestureRecognizer! = UITapGestureRecognizer()
     @IBOutlet var doubleTap: UITapGestureRecognizer! = UITapGestureRecognizer()
     
@@ -66,16 +57,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-//        
-//        let scnView = self.view as SCNView
-//        let scene = PrimitiveScene()
-//        scnView.scene = scene
-//        
-//        scnView.backgroundColor = UIColor.blackColor()
-//        scnView.autoenablesDefaultLighting = true
-//        scnView.allowsCameraControl = true
-
         
         // Single tap to start the timer
         self.singleTap.delegate = self
@@ -91,9 +72,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBAction func onTap(recognizer:UITapGestureRecognizer) {
         if recognizer.numberOfTapsRequired==1 && recognizer.state == .Ended {
-            if !isTapped && !timer.valid {
+            if !isTapped && !timer.valid && !hasCollectedData {
                 // The scren was tapped
                 self.isTapped = true
+                
+                // change background color
+                self.view.backgroundColor = UIColor(red: CGFloat(180.0/255), green: CGFloat(232.0/255), blue: CGFloat(67.0/255), alpha: CGFloat(1))
                 
                 // Timer
                 let aSelector : Selector = "updateTime"
@@ -136,7 +120,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             }
         } else if recognizer.numberOfTapsRequired==2 && recognizer.state == .Ended {
             println("The screen was tapped twice - timer ended")
-            //Stop the updates from the acceleromtere to get out of callback(?)
+            // Reset hasCollectedData so you don't start a new session
+            self.hasCollectedData = true
+            
+            //Stop the updates from the acceleromter to get out of callback(?)
             self.motionManager.stopDeviceMotionUpdates()
 
             // Stop the timer
@@ -155,6 +142,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             scene.addPoints(shape.points)
             scnView.scene = scene
             
+            // camera & light settings
             scnView.backgroundColor = UIColor.blackColor()
             scnView.autoenablesDefaultLighting = true
             scnView.allowsCameraControl = true

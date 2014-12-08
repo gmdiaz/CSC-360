@@ -21,9 +21,6 @@ class NodeCalculator  {
     // time = total time elapsed
     func calculate(frameRate: Float, prevNode: SCNNode, elapsedTime: NSTimeInterval, accelerationX: Float, accelerationY: Float, accelerationZ: Float) -> SCNNode {
         
-        //println(accelerationX.stringValue + "," + accelerationY.stringValue + "," + accelerationZ.stringValue)
-        
-        
         // assuming the user will not be moving very fast when constant velocity
         var defaultVelocity : Float = 0.06
         
@@ -35,16 +32,12 @@ class NodeCalculator  {
         // depending on if there is acceleration or if velocity is constant
         var dx = 0.5 * accelerationX * Float(elapsedTime) * Float(elapsedTime)
         destX = dx + prevNode.position.x
-        //destX = (accelerationX * frameRate + prevNode.position.x)
         
         var dy = 0.5 * accelerationY * Float(elapsedTime) * Float(elapsedTime)
         destY = dy + prevNode.position.y
-        //destY = (accelerationY * frameRate + prevNode.position.y)
-            
+        
         var dz = 0.5 * accelerationZ * Float(elapsedTime) * Float(elapsedTime)
         destZ = dz + prevNode.position.z
-        //destZ = (accelerationZ * frameRate + prevNode.position.z)
-       
         
         var node : SCNNode = SCNNode() // the node
         node.position = SCNVector3(x: destX, y: destY, z: destZ)
