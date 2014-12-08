@@ -46,7 +46,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     // Gesture Recongnizer
     var isTapped = false
     var hasCollectedData = false
-    @IBOutlet var singleTap: UITapGestureRecognizer! = UITapGestureRecognizer()
     @IBOutlet var doubleTap: UITapGestureRecognizer! = UITapGestureRecognizer()
     
     /*
@@ -58,11 +57,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Single tap to start the timer
-        self.singleTap.delegate = self
-        self.singleTap.numberOfTapsRequired = 1
-
-        // Double tap to stop the timer
+         // Double tap to start & stop the timer
         self.doubleTap.numberOfTapsRequired = 2
         self.doubleTap.delegate = self
         
@@ -71,8 +66,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     } // VDL
     
     @IBAction func onTap(recognizer:UITapGestureRecognizer) {
-        if recognizer.numberOfTapsRequired==1 && recognizer.state == .Ended {
-            if !isTapped && !timer.valid && !hasCollectedData {
+        if recognizer.numberOfTapsRequired==2 && recognizer.state == .Ended && !isTapped {
+            if !timer.valid && !hasCollectedData {
                 // The scren was tapped
                 self.isTapped = true
                 
@@ -118,7 +113,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 } // startDeviceMotion
 
             }
-        } else if recognizer.numberOfTapsRequired==2 && recognizer.state == .Ended {
+        } else if recognizer.numberOfTapsRequired==2 && recognizer.state == .Ended && isTapped{
             println("The screen was tapped twice - timer ended")
             // Reset hasCollectedData so you don't start a new session
             self.hasCollectedData = true
