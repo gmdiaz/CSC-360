@@ -20,7 +20,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         
     // Instance of the start node, at coord(0,0,0)
     var startPositionNode : SCNNode! = SCNNode() // the starting position node
-    var startVelocityArray: [Float] = [0.00, 0.00, 0.00]
     
     var nodeCalc : NodeCalculator! = NodeCalculator()
     
@@ -77,26 +76,31 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                     (data, error) in
                     dispatch_async(dispatch_get_main_queue()) {
                         
+                        // Timer Stuff
                         var elapsedTime = 0.0
                         if self.oldTime > 0 {
                             elapsedTime = data.timestamp - self.oldTime
                         }
-                        
                         self.oldTime = data.timestamp
 
+                        // Get in the Accel
                         self.sA_x = self.smoothing * self.sA_x + (1.0-self.smoothing) * Float(data.userAcceleration.x)
                         self.sA_y = self.smoothing * self.sA_y + (1.0-self.smoothing) * Float(data.userAcceleration.y)
                         self.sA_z = self.smoothing * self.sA_z + (1.0-self.smoothing) * Float(data.userAcceleration.z)
                         
-                        if (self.sA_x < 0.00002 && self.sA_x > -0.00002) {
+                        /*var G_x = Float(data.attitude.roll)
+                        var G_y = Float(data.rotationRate.y)
+                        var G_z = Float(data.rotationRate.z)*/
+                        
+                        if (self.sA_x < 0.002 && self.sA_x > -0.002) {
                             self.sA_x = 0.00
                         }
                         
-                        if (self.sA_y < 0.00002 && self.sA_y > -0.00002) {
+                        if (self.sA_y < 0.002 && self.sA_y > -0.002) {
                             self.sA_y = 0.00
                         }
                         
-                        if (self.sA_z < 0.00002 && self.sA_z > -0.00002) {
+                        if (self.sA_z < 0.002 && self.sA_z > -0.002) {
                             self.sA_z = 0.00
                         }
                         
@@ -110,48 +114,18 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                         
                         print(" AccelX: " + xAccel! + " AccelY: " + yAccel!)
                         println(" AccelZ:" + zAccel!) */
-                        
-                        /* Update the Velocity using Previous Velocity / Previous Accel / Elapsed Time */
-                        var newVelocityArray = self.nodeCalc.updateVelocity(self.startVelocityArray, newAccel:
-                            [self.sA_x, self.sA_y, self.sA_z], elapsedTime: elapsedTime)
-                       
-                        if (newVelocityArray[0] < 0.0003 && newVelocityArray[0] > -0.0002) {
-                            newVelocityArray[0] = 0.00
-                        }
-                        
-                        if (newVelocityArray[1] < 0.0003 && newVelocityArray[1] > -0.0002) {
-                            newVelocityArray[1] = 0.00
-                        }
-                        
-                        if (newVelocityArray[2] < 0.0003 && newVelocityArray[2] > -0.0002) {
-                            newVelocityArray[2] = 0.00
-                        }
-
-                        println(newVelocityArray)
-                        /* UPDATE THE POSITION Passing in...
+                                                /* UPDATE THE POSITION Passing in...
                         framerate / previous position / previous velocity / elapsed time */
                         var nextNode : SCNNode
-                        nextNode = self.nodeCalc.calculatePosition(self.startPositionNode,
-                            prevVelocity: self.startVelocityArray,
-                            newVelocity: newVelocityArray,
+                        nextNode = self.nodeCalc.calculatePosition(self.startPositionNode,                            newAccel:[self.sA_x, self.sA_y, self.sA_z],
                             elapsedTime: elapsedTime)
 
-                        /*
-                        let xVel = nf.stringFromNumber(newVelocityArray[0])
-                        let yVel = nf.stringFromNumber(newVelocityArray[1])
-                        let zVel = nf.stringFromNumber(newVelocityArray[2])
-                        
-                        println(" velX: " + xVel! + " velY: " + yVel!)
-                        print(" velZ:" + zVel!)*/
                         
                         //add the nextNode the SCNNode Array
                         self.shape.points.append(nextNode)
                         
                         // set the next node (which is the newest node) to be the startPositionNode
                         self.startPositionNode = nextNode
-                        
-                        // Update the velocity Array & Acceleration Array
-                        self.startVelocityArray = newVelocityArray
                         
                     } // callback
                 } // startDeviceMotion
@@ -164,16 +138,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             
             //Stop the updates from the acceleromter to get out of callback(?)
             self.motionManager.stopDeviceMotionUpdates()
-
-            // Stop the timer
-//            timer.invalidate()
             
             // Change Boolean
             self.isTapped = false
             
             //Encode the SCNNOde "Shape"
             self.shape.saveToFile()
-            
             
             // EVERYTHING TO DO WITH THE 3D RENDERING SCENE
             // set scene to be custom scene

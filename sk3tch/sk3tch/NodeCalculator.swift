@@ -12,39 +12,46 @@ import Foundation
 import SceneKit
 
 class NodeCalculator  {
+
+    var startVelocityArray: [Float] = [0.00, 0.00, 0.00]
     
     init() {
     }
     
-    /* Updates Velocity Array */
-    func updateVelocity(prevVelocity: Array <Float>, newAccel: Array <Float>, elapsedTime: NSTimeInterval) -> Array<Float> {
-        // V1 = A0 * changeTime + V0
-        var curVelocityX = newAccel[0] * Float(elapsedTime) + prevVelocity[0]
-        var curVelocityY = newAccel[1] * Float(elapsedTime) + prevVelocity[1]
-        var curVelocityZ = newAccel[2] * Float(elapsedTime) + prevVelocity[2]
-
-        var newVelocity: [Float] = [curVelocityX, curVelocityY, curVelocityZ]
-        
-        return newVelocity
-    }
-    
     // Calculate the new position
-    func calculatePosition(prevPosition: SCNNode, prevVelocity: Array<Float>,
-        newVelocity: Array <Float>, elapsedTime: NSTimeInterval) -> SCNNode {
+    func calculatePosition(prevPosition: SCNNode,
+        newAccel: Array <Float>,
+        elapsedTime: NSTimeInterval) -> SCNNode {
         
-            var curPositionX = ((prevVelocity[0] + newVelocity[0]) * 0.5) * Float(elapsedTime) + prevPosition.position.x
-            var curPositionY = ((prevVelocity[1] + newVelocity[1]) * 0.5) * Float(elapsedTime) + prevPosition.position.y
-            var curPositionZ = ((prevVelocity[2] + newVelocity[2]) * 0.5) * Float(elapsedTime) + prevPosition.position.z
+            // Find the current velocity
+            var curVelocityX = newAccel[0] * Float(elapsedTime) + self.startVelocityArray[0]
+            var curVelocityY = newAccel[1] * Float(elapsedTime) + self.startVelocityArray[1]
+            var curVelocityZ = newAccel[2] * Float(elapsedTime) + self.startVelocityArray[2]
             
-        // assuming the user will not be moving very fast when constant velocity
-//        var defaultVelocity : Float = 0.06
-        
-        // P1 = V0 * changeTime + P0
-     /*
-        var curPositionX = 0.50 * (prevVelocity[0] * Float(elapsedTime) + prevPosition.position.x)
-        var curPositionY = 0.50 * (prevVelocity[1] * Float(elapsedTime) + prevPosition.position.y)
-        var curPositionZ = 0.50 * (prevVelocity[2] * Float(elapsedTime) + prevPosition.position.z)
-*/
+            // Smooth our values even more
+            if (curVelocityX < 0.0003 && curVelocityX > -0.0002) {
+                self.startVelocityArray[0] = 0.00
+            } else {
+                self.startVelocityArray[0] = curVelocityX
+            }
+            
+            if (curVelocityY < 0.0003 && curVelocityY > -0.0002) {
+                self.startVelocityArray[1] = 0.00
+            } else {
+                self.startVelocityArray[1] = curVelocityY
+            }
+            
+            if (curVelocityZ < 0.0003 && curVelocityZ > -0.0002) {
+                self.startVelocityArray[2] = 0.00
+            } else {
+                self.startVelocityArray[2] = curVelocityZ
+            }
+    
+            // Find the current position
+            var curPositionX = ((curVelocityX) * 0.5) * Float(elapsedTime) + prevPosition.position.x
+            var curPositionY = ((curVelocityY) * 0.5) * Float(elapsedTime) + prevPosition.position.y
+            var curPositionZ = ((curVelocityZ) * 0.5) * Float(elapsedTime) + prevPosition.position.z
+            
         var node : SCNNode = SCNNode() // the node
         node.position = SCNVector3(x: curPositionX, y: curPositionY, z: curPositionZ)
 
