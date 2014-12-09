@@ -12,38 +12,45 @@ import Foundation
 import SceneKit
 
 class NodeCalculator  {
+    
     init() {
-        
     }
     
-    // still need to add in gyroscope information
-    // prevNode = previous point
-    // time = total time elapsed
-    func calculate(frameRate: Float, prevNode: SCNNode, elapsedTime: NSTimeInterval, accelerationX: Float, accelerationY: Float, accelerationZ: Float) -> SCNNode {
+    /* Updates Velocity Array */
+    func updateVelocity(prevVelocity: Array <Float>, newAccel: Array <Float>, elapsedTime: NSTimeInterval) -> Array<Float> {
+        // V1 = A0 * changeTime + V0
+        var curVelocityX = newAccel[0] * Float(elapsedTime) + prevVelocity[0]
+        var curVelocityY = newAccel[1] * Float(elapsedTime) + prevVelocity[1]
+        var curVelocityZ = newAccel[2] * Float(elapsedTime) + prevVelocity[2]
+
+        var newVelocity: [Float] = [curVelocityX, curVelocityY, curVelocityZ]
         
+        return newVelocity
+    }
+    
+    // Calculate the new position
+    func calculatePosition(prevPosition: SCNNode, prevVelocity: Array<Float>,
+        newVelocity: Array <Float>, elapsedTime: NSTimeInterval) -> SCNNode {
+        
+            var curPositionX = ((prevVelocity[0] + newVelocity[0]) * 0.5) * Float(elapsedTime) + prevPosition.position.x
+            var curPositionY = ((prevVelocity[1] + newVelocity[1]) * 0.5) * Float(elapsedTime) + prevPosition.position.y
+            var curPositionZ = ((prevVelocity[2] + newVelocity[2]) * 0.5) * Float(elapsedTime) + prevPosition.position.z
+            
         // assuming the user will not be moving very fast when constant velocity
-        var defaultVelocity : Float = 0.06
+//        var defaultVelocity : Float = 0.06
         
-        // change in each directions
-        var destX : Float
-        var destY : Float
-        var destZ : Float
-        
-        // depending on if there is acceleration or if velocity is constant
-        var dx = 0.5 * accelerationX * Float(elapsedTime) * Float(elapsedTime)
-        destX = dx + prevNode.position.x
-        
-        var dy = 0.5 * accelerationY * Float(elapsedTime) * Float(elapsedTime)
-        destY = dy + prevNode.position.y
-        
-        var dz = 0.5 * accelerationZ * Float(elapsedTime) * Float(elapsedTime)
-        destZ = dz + prevNode.position.z
-        
+        // P1 = V0 * changeTime + P0
+     /*
+        var curPositionX = 0.50 * (prevVelocity[0] * Float(elapsedTime) + prevPosition.position.x)
+        var curPositionY = 0.50 * (prevVelocity[1] * Float(elapsedTime) + prevPosition.position.y)
+        var curPositionZ = 0.50 * (prevVelocity[2] * Float(elapsedTime) + prevPosition.position.z)
+*/
         var node : SCNNode = SCNNode() // the node
-        node.position = SCNVector3(x: destX, y: destY, z: destZ)
+        node.position = SCNVector3(x: curPositionX, y: curPositionY, z: curPositionZ)
+
         
         // print out segment start & end location
-        println("start: " + prevNode.position.stringValue + " end: " + node.position.stringValue)
+        println("start: " + prevPosition.position.stringValue + " end: " + node.position.stringValue)
         //println("time is: " + Float(time).stringValue)
         
         return node

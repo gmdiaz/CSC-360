@@ -35,7 +35,7 @@ class PrimitiveScene: SCNScene {
         
         var counter : Int = 0
         for point in self.points {
-            sphereGeometry = SCNSphere(radius: 0.1)
+            sphereGeometry = SCNSphere(radius: 0.01)
             if counter%2==0 {
                 sphereGeometry.firstMaterial?.diffuse.contents = UIColor.orangeColor()
             } else {

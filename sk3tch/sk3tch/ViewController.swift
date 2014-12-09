@@ -19,7 +19,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var motionManager : CMMotionManager! = CMMotionManager()
         
     // Instance of the start node, at coord(0,0,0)
-    var startNode : SCNNode! = SCNNode() // the node
+    var startPositionNode : SCNNode! = SCNNode() // the starting position node
+    var startVelocityArray: [Float] = [0.00, 0.00, 0.00]
+    
     var nodeCalc : NodeCalculator! = NodeCalculator()
     
     // Instance of Shape for saving
@@ -31,17 +33,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var sA_y :Float = 0
     var sA_z :Float = 0
     
-    var G_x :Float = 0
-    var G_y :Float = 0
-    var G_z :Float = 0
-    
     // Variables used for getting accelerometer data
     var frameRate : Float  = 30.0
     
     // Timer
-    var startTime = NSTimeInterval()
-    var elapsedTime = NSTimeInterval()
-    var timer : NSTimer = NSTimer()
+    var oldTime = -1.0
     
     // Gesture Recongnizer
     var isTapped = false
@@ -61,53 +57,101 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         self.doubleTap.numberOfTapsRequired = 2
         self.doubleTap.delegate = self
         
-        self.shape.points.append(startNode)
+        self.shape.points.append(startPositionNode)
 
     } // VDL
     
     @IBAction func onTap(recognizer:UITapGestureRecognizer) {
         if recognizer.numberOfTapsRequired==2 && recognizer.state == .Ended && !isTapped {
-            if !timer.valid && !hasCollectedData {
+            
+            if (!hasCollectedData){
                 // The scren was tapped
                 self.isTapped = true
                 
                 // change background color
                 self.view.backgroundColor = UIColor(red: CGFloat(180.0/255), green: CGFloat(232.0/255), blue: CGFloat(67.0/255), alpha: CGFloat(1))
                 
-                // Timer
-                let aSelector : Selector = "updateTime"
-                timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: aSelector, userInfo: nil, repeats: true)
-                startTime = NSDate.timeIntervalSinceReferenceDate()
-                
-                if timer.valid {
-                    println("The screen was tapped once - timer started")
-                } else {
-                    println("shit happened -Jess")
-                }
                 
                 // Taking in Device Data
                 self.motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue()) {
                     (data, error) in
                     dispatch_async(dispatch_get_main_queue()) {
                         
+                        var elapsedTime = 0.0
+                        if self.oldTime > 0 {
+                            elapsedTime = data.timestamp - self.oldTime
+                        }
+                        
+                        self.oldTime = data.timestamp
+
                         self.sA_x = self.smoothing * self.sA_x + (1.0-self.smoothing) * Float(data.userAcceleration.x)
                         self.sA_y = self.smoothing * self.sA_y + (1.0-self.smoothing) * Float(data.userAcceleration.y)
                         self.sA_z = self.smoothing * self.sA_z + (1.0-self.smoothing) * Float(data.userAcceleration.z)
                         
+                        if (self.sA_x < 0.00002 && self.sA_x > -0.00002) {
+                            self.sA_x = 0.00
+                        }
                         
+                        if (self.sA_y < 0.00002 && self.sA_y > -0.00002) {
+                            self.sA_y = 0.00
+                        }
+                        
+                        if (self.sA_z < 0.00002 && self.sA_z > -0.00002) {
+                            self.sA_z = 0.00
+                        }
+                        
+                        
+                        let nf = NSNumberFormatter()
+                        nf.numberStyle = .DecimalStyle
+                        /*
+                        let xAccel = nf.stringFromNumber(self.sA_x)
+                        let yAccel = nf.stringFromNumber(self.sA_y)
+                        let zAccel = nf.stringFromNumber(self.sA_z)
+                        
+                        print(" AccelX: " + xAccel! + " AccelY: " + yAccel!)
+                        println(" AccelZ:" + zAccel!) */
+                        
+                        /* Update the Velocity using Previous Velocity / Previous Accel / Elapsed Time */
+                        var newVelocityArray = self.nodeCalc.updateVelocity(self.startVelocityArray, newAccel:
+                            [self.sA_x, self.sA_y, self.sA_z], elapsedTime: elapsedTime)
+                       
+                        if (newVelocityArray[0] < 0.0003 && newVelocityArray[0] > -0.0002) {
+                            newVelocityArray[0] = 0.00
+                        }
+                        
+                        if (newVelocityArray[1] < 0.0003 && newVelocityArray[1] > -0.0002) {
+                            newVelocityArray[1] = 0.00
+                        }
+                        
+                        if (newVelocityArray[2] < 0.0003 && newVelocityArray[2] > -0.0002) {
+                            newVelocityArray[2] = 0.00
+                        }
+
+                        println(newVelocityArray)
+                        /* UPDATE THE POSITION Passing in...
+                        framerate / previous position / previous velocity / elapsed time */
                         var nextNode : SCNNode
+                        nextNode = self.nodeCalc.calculatePosition(self.startPositionNode,
+                            prevVelocity: self.startVelocityArray,
+                            newVelocity: newVelocityArray,
+                            elapsedTime: elapsedTime)
+
+                        /*
+                        let xVel = nf.stringFromNumber(newVelocityArray[0])
+                        let yVel = nf.stringFromNumber(newVelocityArray[1])
+                        let zVel = nf.stringFromNumber(newVelocityArray[2])
                         
-                        nextNode = self.nodeCalc.calculate(self.frameRate, prevNode: self.startNode, elapsedTime: self.elapsedTime, accelerationX: self.sA_x, accelerationY: self.sA_y, accelerationZ: self.sA_z)
-                        
-                        //              self.G_x = Float(data.rotationRate.x)
-                        //              self.G_y = Float(data.rotationRate.x)
-                        //              self.G_z = Float(data.rotationRate.x)
+                        println(" velX: " + xVel! + " velY: " + yVel!)
+                        print(" velZ:" + zVel!)*/
                         
                         //add the nextNode the SCNNode Array
                         self.shape.points.append(nextNode)
                         
-                        // set the next node (which is the newest node) to be the startNode
-                        self.startNode = nextNode
+                        // set the next node (which is the newest node) to be the startPositionNode
+                        self.startPositionNode = nextNode
+                        
+                        // Update the velocity Array & Acceleration Array
+                        self.startVelocityArray = newVelocityArray
                         
                     } // callback
                 } // startDeviceMotion
@@ -122,7 +166,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             self.motionManager.stopDeviceMotionUpdates()
 
             // Stop the timer
-            timer.invalidate()
+//            timer.invalidate()
             
             // Change Boolean
             self.isTapped = false
@@ -132,7 +176,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             
             
             // EVERYTHING TO DO WITH THE 3D RENDERING SCENE
-
             // set scene to be custom scene
             let scnView = self.view as SCNView
             let scene = PrimitiveScene()
@@ -143,7 +186,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             scnView.backgroundColor = UIColor.blackColor()
             scnView.autoenablesDefaultLighting = true
             scnView.allowsCameraControl = true
-
             /***************************/
             
             
@@ -154,25 +196,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             }*/
         }
     }
-    
-    func updateTime() {
-        var currentTime = NSDate.timeIntervalSinceReferenceDate()
-        
-        //Find the difference between current time and start time.
-        self.elapsedTime =  currentTime - startTime
-        
-        //calculate the minutes in elapsed time.
-        //let minutes = UInt8(elapsedTime / 60.0)
-        //elapsedTime -= (NSTimeInterval(minutes) * 60)
-        
-        //calculate the seconds in elapsed time.
-        let seconds = UInt8(elapsedTime)
-        self.elapsedTime -= NSTimeInterval(seconds)
-        
-        //find out the fraction of milliseconds to be displayed.
-        //let fraction = UInt8(elapsedTime * 100)
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
