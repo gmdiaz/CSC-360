@@ -88,36 +88,31 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                         self.sA_y = self.smoothing * self.sA_y + (1.0-self.smoothing) * Float(data.userAcceleration.y)
                         self.sA_z = self.smoothing * self.sA_z + (1.0-self.smoothing) * Float(data.userAcceleration.z)
                         
-                        /*var G_x = Float(data.attitude.roll)
-                        var G_y = Float(data.rotationRate.y)
-                        var G_z = Float(data.rotationRate.z)*/
-                        
-                        if (self.sA_x < 0.002 && self.sA_x > -0.002) {
+                       if (self.sA_x < 0.0002 && self.sA_x > -0.0002) {
                             self.sA_x = 0.00
                         }
                         
-                        if (self.sA_y < 0.002 && self.sA_y > -0.002) {
+                        if (self.sA_y < 0.0002 && self.sA_y > -0.0002) {
                             self.sA_y = 0.00
                         }
                         
-                        if (self.sA_z < 0.002 && self.sA_z > -0.002) {
+                        if (self.sA_z < 0.0002 && self.sA_z > -0.0002) {
                             self.sA_z = 0.00
                         }
+                        /* Using Roll / Pitch / Yaw */
+                        var G_x = Float(data.attitude.roll)
+                        var G_y = Float(data.attitude.pitch)
+                        var G_z = Float(data.attitude.yaw)
                         
+                        /* Quaternion */
+                        var RotationX = Float(data.attitude.quaternion.x)
+                        var RotationY = Float(data.attitude.quaternion.y)
+                        var RotationZ = Float(data.attitude.quaternion.z)
                         
-                        let nf = NSNumberFormatter()
-                        nf.numberStyle = .DecimalStyle
-                        /*
-                        let xAccel = nf.stringFromNumber(self.sA_x)
-                        let yAccel = nf.stringFromNumber(self.sA_y)
-                        let zAccel = nf.stringFromNumber(self.sA_z)
-                        
-                        print(" AccelX: " + xAccel! + " AccelY: " + yAccel!)
-                        println(" AccelZ:" + zAccel!) */
-                                                /* UPDATE THE POSITION Passing in...
-                        framerate / previous position / previous velocity / elapsed time */
+                        /* UPDATE THE POSITION Passing in...
+                        framerate / prevAccel */
                         var nextNode : SCNNode
-                        nextNode = self.nodeCalc.calculatePosition(self.startPositionNode,                            newAccel:[self.sA_x, self.sA_y, self.sA_z],
+                        nextNode = self.nodeCalc.calculatePosition(self.startPositionNode,                            currentAccel:[self.sA_x, self.sA_y, self.sA_z],
                             elapsedTime: elapsedTime)
 
                         

@@ -14,50 +14,63 @@ import SceneKit
 class NodeCalculator  {
 
     var startVelocityArray: [Float] = [0.00, 0.00, 0.00]
+    var startAccelArray: [Float] = [0.00, 0.00, 0.00]
+    
     
     init() {
     }
     
     // Calculate the new position
     func calculatePosition(prevPosition: SCNNode,
-        newAccel: Array <Float>,
+        currentAccel: Array <Float>,
         elapsedTime: NSTimeInterval) -> SCNNode {
         
             // Find the current velocity
-            var curVelocityX = newAccel[0] * Float(elapsedTime) + self.startVelocityArray[0]
-            var curVelocityY = newAccel[1] * Float(elapsedTime) + self.startVelocityArray[1]
-            var curVelocityZ = newAccel[2] * Float(elapsedTime) + self.startVelocityArray[2]
+            var curVelocityX = self.startAccelArray[0] * Float(elapsedTime) + self.startVelocityArray[0]
+            var curVelocityY = self.startAccelArray[1] * Float(elapsedTime) + self.startVelocityArray[1]
+            var curVelocityZ = self.startAccelArray[2] * Float(elapsedTime) + self.startVelocityArray[2]
             
-            // Smooth our values even more
-            if (curVelocityX < 0.0003 && curVelocityX > -0.0002) {
+            // Find the current position
+            var curPositionX = (self.startVelocityArray[0]) * Float(elapsedTime) + prevPosition.position.x
+            var curPositionY = (self.startVelocityArray[1]) * Float(elapsedTime) + prevPosition.position.y
+            var curPositionZ = (self.startVelocityArray[2]) * Float(elapsedTime) + prevPosition.position.z
+            
+            // Smooth our values even more & Update the Velocity
+            if (curVelocityX < 0.0002 && curVelocityX > -0.0002) {
                 self.startVelocityArray[0] = 0.00
             } else {
                 self.startVelocityArray[0] = curVelocityX
             }
             
-            if (curVelocityY < 0.0003 && curVelocityY > -0.0002) {
+            if (curVelocityY < 0.0002 && curVelocityY > -0.0002) {
                 self.startVelocityArray[1] = 0.00
             } else {
                 self.startVelocityArray[1] = curVelocityY
             }
             
-            if (curVelocityZ < 0.0003 && curVelocityZ > -0.0002) {
+            if (curVelocityZ < 0.0002 && curVelocityZ > -0.0002) {
                 self.startVelocityArray[2] = 0.00
             } else {
                 self.startVelocityArray[2] = curVelocityZ
             }
-    
-            // Find the current position
-            var curPositionX = ((curVelocityX) * 0.5) * Float(elapsedTime) + prevPosition.position.x
-            var curPositionY = ((curVelocityY) * 0.5) * Float(elapsedTime) + prevPosition.position.y
-            var curPositionZ = ((curVelocityZ) * 0.5) * Float(elapsedTime) + prevPosition.position.z
+
+            self.startVelocityArray = [curVelocityX, curVelocityY, curVelocityZ]
             
+            print("Velocity:  ")
+            print(self.startVelocityArray)
+            print("   Acceleration: ")
+            print(self.startAccelArray)
+            println()
+            
+            // Update the acceleration
+            startAccelArray = currentAccel
+
         var node : SCNNode = SCNNode() // the node
         node.position = SCNVector3(x: curPositionX, y: curPositionY, z: curPositionZ)
 
         
         // print out segment start & end location
-        println("start: " + prevPosition.position.stringValue + " end: " + node.position.stringValue)
+        //println("start: " + prevPosition.position.stringValue + " end: " + node.position.stringValue)
         //println("time is: " + Float(time).stringValue)
         
         return node
@@ -70,7 +83,6 @@ extension Float {
         return NSString(format: "%.2f", self)
     }
 }
-
 
 // Extending SCNVector3 to print as string
 extension SCNVector3 {
