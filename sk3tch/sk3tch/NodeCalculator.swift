@@ -14,19 +14,21 @@ import SceneKit
 class NodeCalculator  {
     
     // Starting arrays
-    var startVelocityArray: [Float] = [0.00, 0.00, 0.00]
-    var startAccelArray: [Float] = [0.00, 0.00, 0.00]
+    var startVelocityArray: [Double] = [0.00, 0.00, 0.00]
+    var startAccelArray: [Double] = [0.00, 0.00, 0.00]
     
     // Timer
     var oldTime = -1.0
-    
+    var smoothing = 0.99
     init() {
     }
     
     func calculatePosition(prevPosition: SCNNode,
-        currentAccel: Array <Float>,
+        currentAccel: Array <Double>,
         totalTime: NSTimeInterval) -> SCNNode {
-        
+            var curVelocity: [Double] = [0.00, 0.00, 0.00]
+            var curPosition: [Double] = [0.00, 0.00, 0.00]
+            
             // Timer Stuff
             var elapsedTime = 0.0
             
@@ -35,51 +37,44 @@ class NodeCalculator  {
             }
             self.oldTime = totalTime
             
-            println([elapsedTime])
             
-            // Find the current velocity
-            var curVelocityX = self.startAccelArray[0] * Float(elapsedTime) + self.startVelocityArray[0]
-            var curVelocityY = self.startAccelArray[1] * Float(elapsedTime) + self.startVelocityArray[1]
-            var curVelocityZ = self.startAccelArray[2] * Float(elapsedTime) + self.startVelocityArray[2]
-            
-            // Find the current position
-            var curPositionX = (self.startVelocityArray[0] + curVelocityX) * 0.5 * Float(elapsedTime) + prevPosition.position.x
-            var curPositionY = (self.startVelocityArray[1] + curVelocityY) * 0.5  * Float(elapsedTime) + prevPosition.position.y
-            var curPositionZ = (self.startVelocityArray[2] + curVelocityZ) * 0.5 * Float(elapsedTime) + prevPosition.position.z
-            
-            // Smooth our values even more & Update the Velocity
-            if ((curVelocityX < 0.0002 && curVelocityX > -0.0002) || (self.startAccelArray[0] == 0 && self.startVelocityArray[0] > curVelocityX)) {
-                self.startVelocityArray[0] = 0.00
-            } else {
-                self.startVelocityArray[0] = curVelocityX
+            // Iterate through x y and z values
+            for i in 0...2 {
+                //Smooth & Minimize Values around 0
+                self.startAccelArray[i] = self.smoothing * self.startAccelArray[i] + (1.0-self.smoothing) * (currentAccel[i])
+                if (self.startAccelArray[i] < 0.0002 && self.startAccelArray[i] > -0.0002) {
+                    self.startAccelArray[i] = 0.00
+                }
+                
+                curVelocity[i] = self.startAccelArray[i] * (elapsedTime) + self.startVelocityArray[i]
             }
-            
-            if ((curVelocityY < 0.0002 && curVelocityY > -0.0002) || (self.startAccelArray[1] == 0 && self.startVelocityArray[1] > curVelocityY )) {
-                self.startVelocityArray[1] = 0.00
-            } else {
-                self.startVelocityArray[1] = curVelocityY
-            }
-            
-            if ((curVelocityZ < 0.0002 && curVelocityZ > -0.0002) || (self.startAccelArray[2] == 0 && self.startVelocityArray[2] > curVelocityZ )) {
-                self.startVelocityArray[2] = 0.00
-            } else {
-                self.startVelocityArray[2] = curVelocityZ
-            }
+ 
 
-            self.startVelocityArray = [curVelocityX, curVelocityY, curVelocityZ]
+            // Find the current position
+            curPosition[0] = (self.startVelocityArray[0] + curVelocity[0]) * 0.5 * (elapsedTime) + Double(prevPosition.position.x)
+            curPosition[1] = (self.startVelocityArray[1] + curVelocity[1]) * 0.5 * (elapsedTime) + Double(prevPosition.position.y)
+            curPosition[2] = (self.startVelocityArray[2] + curVelocity[2]) * 0.5 * (elapsedTime) + Double(prevPosition.position.z)
             
-            /*print("Velocity:  ")
+            // Smooth velocity values
+            for j in 0...2 {
+                if ((curVelocity[j] < 0.0002 && curVelocity[j] > -0.0002)) {
+                    self.startVelocityArray[j] = 0.00
+                } else {
+                    self.startVelocityArray[j] = curVelocity[j]
+                }
+                
+                self.startVelocityArray[j] = curVelocity[j]
+            }
+            
+            /*
+            print("Velocity:  ")
             print(self.startVelocityArray)
             print("   Acceleration: ")
             print(self.startAccelArray)
             println()*/
-            
-            // Update the acceleration
-            startAccelArray = currentAccel
 
             var node : SCNNode = SCNNode() // the node
-            node.position = SCNVector3(x: curPositionX, y: curPositionY, z: curPositionZ)
-
+            node.position = SCNVector3(x: Float(curPosition[0]), y: Float(curPosition[1]), z: Float(curPosition[2]))
         
             // print out segment start & end location
             //println("start: " + prevPosition.position.stringValue + " end: " + node.position.stringValue)

@@ -40,7 +40,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet var doubleTap: UITapGestureRecognizer! = UITapGestureRecognizer()
     
     // Dictionary for all the incomming values - Key: Timestamp / Value: [AccelX, AccelY, AccelZ]
-    var data: [Double: Array<Float>] = [0.00: [0.00, 0.00, 0.00] ]
+    var data: [Double: Array<Double>] = [:]
     
     /*
     * viewDidLoad()
@@ -67,37 +67,22 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 self.isTapped = true
                 self.view.backgroundColor = UIColor(red: CGFloat(180.0/255), green: CGFloat(232.0/255), blue: CGFloat(67.0/255), alpha: CGFloat(1))
                 
+                self.motionManager.deviceMotionUpdateInterval = 0.01
+                
                 self.motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue()) {
                     (data, error) in
                     dispatch_async(dispatch_get_main_queue()) {
                         
-                        // Get the Overall time
-                        var timeStamp = data.timestamp
-
-                        // Get in and Smooth the Accel
-                        self.sA_x = self.smoothing * self.sA_x + (1.0-self.smoothing) * Float(data.userAcceleration.x)
-                        self.sA_y = self.smoothing * self.sA_y + (1.0-self.smoothing) * Float(data.userAcceleration.y)
-                        self.sA_z = self.smoothing * self.sA_z + (1.0-self.smoothing) * Float(data.userAcceleration.z)
                         
-                        if (self.sA_x < 0.0002 && self.sA_x > -0.0002) {
-                            self.sA_x = 0.00
-                        }
-                        
-                        if (self.sA_y < 0.0002 && self.sA_y > -0.0002) {
-                            self.sA_y = 0.00
-                        }
-                        
-                        if (self.sA_z < 0.0002 && self.sA_z > -0.0002) {
-                            self.sA_z = 0.00
-                        }
-
-                        // Add all the data to data dictionary
-                        self.data[timeStamp] = [self.sA_x, self.sA_y, self.sA_z]
+                        self.data[data.timestamp] = [data.userAcceleration.x, data.userAcceleration.y, data.userAcceleration.x]
                         
                     } // callback
                 } // startDeviceMotion
             }
         } else if recognizer.numberOfTapsRequired==2 && recognizer.state == .Ended && isTapped{
+            
+            self.view.backgroundColor = UIColor(red: CGFloat(0/255), green: CGFloat(0/255), blue: CGFloat(225/255), alpha: CGFloat(1))
+            
             //Stop the updates from the acceleromter
             self.motionManager.stopDeviceMotionUpdates()
             
