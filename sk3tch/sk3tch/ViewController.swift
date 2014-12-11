@@ -12,7 +12,7 @@ import SceneKit
 
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var motionManager : CMMotionManager! = CMMotionManager()
-        
+    
     // Instance of the start node, at coord(0,0,0)
     var startPositionNode : SCNNode! = SCNNode() // the starting position node
     var nodeCalc : NodeCalculator! = NodeCalculator()
@@ -29,6 +29,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     // Variables used for getting accelerometer data
     var frameRate : Float  = 30.0
     
+    //refresh button
+    @IBOutlet weak var refreshButton: UIButton!
+    
     // Gesture Recongnizer
     var isTapped = false
     var hasCollectedData = false
@@ -43,6 +46,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //hide the refresh button at start
+        self.refreshButton.hidden = true
+        
          // Double tap to start & stop the timer
         self.doubleTap.numberOfTapsRequired = 2
         self.doubleTap.delegate = self
@@ -54,6 +60,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBAction func onTap(recognizer:UITapGestureRecognizer) {
         if recognizer.numberOfTapsRequired==2 && recognizer.state == .Ended && !isTapped {
+            
+            //unhide the refresh button
+            self.refreshButton.hidden = false
             
             if (!hasCollectedData){
                 self.isTapped = true
@@ -143,6 +152,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 lastName.text = person.lastName*/
             }*/
         }
+    }
+    @IBAction func refreshPressedToResetScene(sender: AnyObject) {
+        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
