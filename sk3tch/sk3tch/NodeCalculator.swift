@@ -12,19 +12,31 @@ import Foundation
 import SceneKit
 
 class NodeCalculator  {
-
+    
+    // Starting arrays
     var startVelocityArray: [Float] = [0.00, 0.00, 0.00]
     var startAccelArray: [Float] = [0.00, 0.00, 0.00]
-    var startAngleArray: [Float] = [0.00, 0.00, 0.00]
     
+    // Timer
+    var oldTime = -1.0
     
     init() {
     }
     
     func calculatePosition(prevPosition: SCNNode,
         currentAccel: Array <Float>,
-        elapsedTime: NSTimeInterval) -> SCNNode {
+        totalTime: NSTimeInterval) -> SCNNode {
         
+            // Timer Stuff
+            var elapsedTime = 0.0
+            
+            if self.oldTime > 0 {
+                elapsedTime = totalTime - self.oldTime
+            }
+            self.oldTime = totalTime
+            
+            println([elapsedTime])
+            
             // Find the current velocity
             var curVelocityX = self.startAccelArray[0] * Float(elapsedTime) + self.startVelocityArray[0]
             var curVelocityY = self.startAccelArray[1] * Float(elapsedTime) + self.startVelocityArray[1]

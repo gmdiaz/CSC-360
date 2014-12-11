@@ -20,9 +20,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         
     // Instance of the start node, at coord(0,0,0)
     var startPositionNode : SCNNode! = SCNNode() // the starting position node
-    
     var nodeCalc : NodeCalculator! = NodeCalculator()
-    
+
     // Instance of Shape for saving
     var shape = Stroke()
     
@@ -35,13 +34,15 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     // Variables used for getting accelerometer data
     var frameRate : Float  = 30.0
     
-    // Timer
-    var oldTime = -1.0
-    
     // Gesture Recongnizer
     var isTapped = false
     var hasCollectedData = false
     @IBOutlet var doubleTap: UITapGestureRecognizer! = UITapGestureRecognizer()
+    
+    // Dictionary for all the incomming values **************
+    // Key: Timestamp
+    // Value: [AccelX, AccelY, AccelZ]
+    var data: [Double: Array<Float>] = [0.00: [0.00, 0.00, 0.00] ]
     
     /*
     * viewDidLoad()
@@ -56,6 +57,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         self.doubleTap.numberOfTapsRequired = 2
         self.doubleTap.delegate = self
         
+        // Add the position nodes
         self.shape.points.append(startPositionNode)
 
     } // VDL
@@ -64,74 +66,69 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         if recognizer.numberOfTapsRequired==2 && recognizer.state == .Ended && !isTapped {
             
             if (!hasCollectedData){
-                // The scren was tapped
                 self.isTapped = true
-                
-                // change background color
                 self.view.backgroundColor = UIColor(red: CGFloat(180.0/255), green: CGFloat(232.0/255), blue: CGFloat(67.0/255), alpha: CGFloat(1))
                 
                 // Taking in Device Data
                 self.motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue()) {
                     (data, error) in
                     dispatch_async(dispatch_get_main_queue()) {
-                        
-                        // Timer Stuff
-                        var elapsedTime = 0.0
-                        if self.oldTime > 0 {
-                            elapsedTime = data.timestamp - self.oldTime
-                            if let e = error {
-                                println(["ERRORORORORORO", elapsedTime, error])
-                                
-                            } else {
-                                println([elapsedTime])
-                            }
-                        }
-                        self.oldTime = data.timestamp
+                        // Get the Overall time
+                        var timeStamp = data.timestamp
 
-                        // Get in the Accel
+                        // Get in and Smooth the Accel
                         self.sA_x = self.smoothing * self.sA_x + (1.0-self.smoothing) * Float(data.userAcceleration.x)
                         self.sA_y = self.smoothing * self.sA_y + (1.0-self.smoothing) * Float(data.userAcceleration.y)
                         self.sA_z = self.smoothing * self.sA_z + (1.0-self.smoothing) * Float(data.userAcceleration.z)
                         
-                       if (self.sA_x < 0.0002 && self.sA_x > -0.0002) {
-                            self.sA_x = 0.00
+                        if (self.sA_x < 0.0002 && self.sA_x > -0.0002) {
+                        self.sA_x = 0.00
                         }
                         
                         if (self.sA_y < 0.0002 && self.sA_y > -0.0002) {
-                            self.sA_y = 0.00
+                        self.sA_y = 0.00
                         }
                         
                         if (self.sA_z < 0.0002 && self.sA_z > -0.0002) {
-                            self.sA_z = 0.00
+                        self.sA_z = 0.00
                         }
-                        
-                        /* UPDATE THE POSITION Passing in: prevAccel, Elapsed Time, Quaternions*/
-                        var nextNode : SCNNode
-                        nextNode = self.nodeCalc.calculatePosition(self.startPositionNode,
-                            currentAccel:[self.sA_x, self.sA_y, self.sA_z],
-                            elapsedTime: elapsedTime)
 
-                        
-                        //add the nextNode the SCNNode Array
-                        self.shape.points.append(nextNode)
-                        
-                        // set the next node (which is the newest node) to be the startPositionNode
-                        self.startPositionNode = nextNode
+                        // Add all the data to data dictionary
+                        self.data[timeStamp] = [self.sA_x, self.sA_y, self.sA_z]
                         
                     } // callback
                 } // startDeviceMotion
 
             }
         } else if recognizer.numberOfTapsRequired==2 && recognizer.state == .Ended && isTapped{
-            println("The screen was tapped twice - timer ended")
-            // Reset hasCollectedData so you don't start a new session
-            self.hasCollectedData = true
-            
             //Stop the updates from the acceleromter to get out of callback(?)
             self.motionManager.stopDeviceMotionUpdates()
             
-            // Change Boolean
+            // Reset hasCollectedData so you don't start a new session & Change Boolean
+            self.hasCollectedData = true
             self.isTapped = false
+            
+            // Sort Dictionary by Key (timestamp) to eliminate negative time stamp issue
+            let sortedDataKeys = Array(self.data.keys).sorted(<)
+            
+            // CREATE THE POSITION
+            // Loop through Dictionary via sortedDataKeys and send values off 
+            // --> Returns next position node to append to the shape
+            for time in sortedDataKeys {
+                if let accelerationArray = data[time] {
+                    /* UPDATE THE POSITION Passing in: prevAccel, Elapsed Time */
+                    var nextNode : SCNNode
+                    nextNode = self.nodeCalc.calculatePosition(self.startPositionNode,
+                        currentAccel:accelerationArray, totalTime: time)
+                    
+                    //add the nextNode the SCNNode Array
+                    self.shape.points.append(nextNode)
+                    
+                    // set the next node (which is the newest node) to be the startPositionNode
+                    self.startPositionNode = nextNode
+
+                }
+            }
             
             //Encode the SCNNOde "Shape"
             self.shape.saveToFile()
