@@ -4,6 +4,8 @@
 //
 //  Created by Giovanna Diaz on 11/5/14.
 //  Copyright (c) 2014 Giovanna Diaz. All rights reserved.
+//
+// POtentially useful: http://tinyurl.com/k7j4ocg
 
 import UIKit
 import CoreMotion
@@ -125,7 +127,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                     
                     // set the next node (which is the newest node) to be the startPositionNode
                     self.startPositionNode = nextNode
-
                 }
             }
             
@@ -144,7 +145,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             scnView.autoenablesDefaultLighting = true
             scnView.allowsCameraControl = true
             
-            
             // Test decoding the "Shape"
             /* if let theStroke = Stroke.readFromFile() {
                 /*firstName.text = person.firstName
@@ -152,9 +152,24 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             }*/
         }
     }
+    
+    // Refresh Button Functionality
     @IBAction func refreshPressedToResetScene(sender: AnyObject) {
+        //hide the refresh button
+        refreshButton.hidden = true
         
+        //Removes all data (deletes underlying storage buffer) and add starting values
+        data.removeAll()
+        data[0.00] = [0.00, 0.00, 0.00]
+     
+        // Reset the view - get rid of scenekit
+        
+        // Reset the necessary booleans
+        hasCollectedData = false
+        isTapped = false
     }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

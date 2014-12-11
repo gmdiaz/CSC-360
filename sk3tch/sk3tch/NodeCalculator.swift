@@ -48,19 +48,19 @@ class NodeCalculator  {
             var curPositionZ = (self.startVelocityArray[2] + curVelocityZ) * 0.5 * Float(elapsedTime) + prevPosition.position.z
             
             // Smooth our values even more & Update the Velocity
-            if ((curVelocityX < 0.0002 && curVelocityX > -0.0002)) {
+            if ((curVelocityX < 0.0002 && curVelocityX > -0.0002) || (self.startAccelArray[0] == 0 && self.startVelocityArray[0] > curVelocityX)) {
                 self.startVelocityArray[0] = 0.00
             } else {
                 self.startVelocityArray[0] = curVelocityX
             }
             
-            if ((curVelocityY < 0.0002 && curVelocityY > -0.0002)) {
+            if ((curVelocityY < 0.0002 && curVelocityY > -0.0002) || (self.startAccelArray[1] == 0 && self.startVelocityArray[1] > curVelocityY )) {
                 self.startVelocityArray[1] = 0.00
             } else {
                 self.startVelocityArray[1] = curVelocityY
             }
             
-            if ((curVelocityZ < 0.0002 && curVelocityZ > -0.0002)) {
+            if ((curVelocityZ < 0.0002 && curVelocityZ > -0.0002) || (self.startAccelArray[2] == 0 && self.startVelocityArray[2] > curVelocityZ )) {
                 self.startVelocityArray[2] = 0.00
             } else {
                 self.startVelocityArray[2] = curVelocityZ
