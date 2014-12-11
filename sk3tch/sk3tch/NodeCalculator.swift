@@ -15,40 +15,46 @@ class NodeCalculator  {
 
     var startVelocityArray: [Float] = [0.00, 0.00, 0.00]
     var startAccelArray: [Float] = [0.00, 0.00, 0.00]
+    var startAngleArray: [Float] = [0.00, 0.00, 0.00]
     
     
     init() {
     }
     
-    // Calculate the new position
     func calculatePosition(prevPosition: SCNNode,
         currentAccel: Array <Float>,
+        currentAngle: Array <Float>,
         elapsedTime: NSTimeInterval) -> SCNNode {
         
+            // q = cos(a/2) + i ( x * sin(a/2)) + j (y * sin(a/2)) + k ( z * sin(a/2))
+            // a = rotation angle
+            // x,y,z = rotaiton axis
+            // q = quaternion that represents the rotation
+            
             // Find the current velocity
             var curVelocityX = self.startAccelArray[0] * Float(elapsedTime) + self.startVelocityArray[0]
             var curVelocityY = self.startAccelArray[1] * Float(elapsedTime) + self.startVelocityArray[1]
             var curVelocityZ = self.startAccelArray[2] * Float(elapsedTime) + self.startVelocityArray[2]
             
             // Find the current position
-            var curPositionX = (self.startVelocityArray[0]) * Float(elapsedTime) + prevPosition.position.x
-            var curPositionY = (self.startVelocityArray[1]) * Float(elapsedTime) + prevPosition.position.y
-            var curPositionZ = (self.startVelocityArray[2]) * Float(elapsedTime) + prevPosition.position.z
+            var curPositionX = (self.startVelocityArray[0] + curVelocityX) * 0.5 * Float(elapsedTime) + prevPosition.position.x
+            var curPositionY = (self.startVelocityArray[1] + curVelocityY) * 0.5  * Float(elapsedTime) + prevPosition.position.y
+            var curPositionZ = (self.startVelocityArray[2] + curVelocityZ) * 0.5 * Float(elapsedTime) + prevPosition.position.z
             
             // Smooth our values even more & Update the Velocity
-            if (curVelocityX < 0.0002 && curVelocityX > -0.0002) {
+            if ((curVelocityX < 0.0002 && curVelocityX > -0.0002)) {
                 self.startVelocityArray[0] = 0.00
             } else {
                 self.startVelocityArray[0] = curVelocityX
             }
             
-            if (curVelocityY < 0.0002 && curVelocityY > -0.0002) {
+            if ((curVelocityY < 0.0002 && curVelocityY > -0.0002)) {
                 self.startVelocityArray[1] = 0.00
             } else {
                 self.startVelocityArray[1] = curVelocityY
             }
             
-            if (curVelocityZ < 0.0002 && curVelocityZ > -0.0002) {
+            if ((curVelocityZ < 0.0002 && curVelocityZ > -0.0002)) {
                 self.startVelocityArray[2] = 0.00
             } else {
                 self.startVelocityArray[2] = curVelocityZ
@@ -56,11 +62,11 @@ class NodeCalculator  {
 
             self.startVelocityArray = [curVelocityX, curVelocityY, curVelocityZ]
             
-            print("Velocity:  ")
+            /*print("Velocity:  ")
             print(self.startVelocityArray)
             print("   Acceleration: ")
             print(self.startAccelArray)
-            println()
+            println()*/
             
             // Update the acceleration
             startAccelArray = currentAccel

@@ -70,7 +70,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 // change background color
                 self.view.backgroundColor = UIColor(red: CGFloat(180.0/255), green: CGFloat(232.0/255), blue: CGFloat(67.0/255), alpha: CGFloat(1))
                 
-                
                 // Taking in Device Data
                 self.motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue()) {
                     (data, error) in
@@ -80,6 +79,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                         var elapsedTime = 0.0
                         if self.oldTime > 0 {
                             elapsedTime = data.timestamp - self.oldTime
+                            if let e = error {
+                                println(["ERRORORORORORO", elapsedTime, error])
+                                
+                            } else {
+                                println([elapsedTime])
+                            }
                         }
                         self.oldTime = data.timestamp
 
@@ -99,20 +104,27 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                         if (self.sA_z < 0.0002 && self.sA_z > -0.0002) {
                             self.sA_z = 0.00
                         }
-                        /* Using Roll / Pitch / Yaw */
+                        
+                        /* Using Roll / Pitch / Yaw
                         var G_x = Float(data.attitude.roll)
                         var G_y = Float(data.attitude.pitch)
-                        var G_z = Float(data.attitude.yaw)
+                        var G_z = Float(data.attitude.yaw) */
                         
-                        /* Quaternion */
+                        /* Quaternion 
+                        ** Returns: <x, y, z, y>
+                        **
+                        */
                         var RotationX = Float(data.attitude.quaternion.x)
                         var RotationY = Float(data.attitude.quaternion.y)
                         var RotationZ = Float(data.attitude.quaternion.z)
                         
-                        /* UPDATE THE POSITION Passing in...
-                        framerate / prevAccel */
+                        var RotationArray = [RotationX, RotationY, RotationZ]
+                        //println(RotationArray)
+                        
+                        /* UPDATE THE POSITION Passing in: prevAccel, Elapsed Time, Quaternions*/
                         var nextNode : SCNNode
                         nextNode = self.nodeCalc.calculatePosition(self.startPositionNode,                            currentAccel:[self.sA_x, self.sA_y, self.sA_z],
+                            currentAngle:[RotationX, RotationY, RotationZ],
                             elapsedTime: elapsedTime)
 
                         
