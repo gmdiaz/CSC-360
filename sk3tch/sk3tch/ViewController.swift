@@ -4,11 +4,6 @@
 //
 //  Created by Giovanna Diaz on 11/5/14.
 //  Copyright (c) 2014 Giovanna Diaz. All rights reserved.
-//
-//
-// TO DO:
-// - Need to add in gesture recognizer for tapping on screen (signify starting and ending of drawing)
-//
 
 import UIKit
 import CoreMotion
@@ -39,16 +34,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var hasCollectedData = false
     @IBOutlet var doubleTap: UITapGestureRecognizer! = UITapGestureRecognizer()
     
-    // Dictionary for all the incomming values **************
-    // Key: Timestamp
-    // Value: [AccelX, AccelY, AccelZ]
+    // Dictionary for all the incomming values - Key: Timestamp / Value: [AccelX, AccelY, AccelZ]
     var data: [Double: Array<Float>] = [0.00: [0.00, 0.00, 0.00] ]
     
     /*
     * viewDidLoad()
-    * - Takes in the accelerometer information and sends it to instance of NodeInSpace where
-    *   it is processed and stored on the phone
-    * - Commented Out: Takes in the gyroscope data as well
     */
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +50,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         // Add the position nodes
         self.shape.points.append(startPositionNode)
 
-    } // VDL
+    }
     
     @IBAction func onTap(recognizer:UITapGestureRecognizer) {
         if recognizer.numberOfTapsRequired==2 && recognizer.state == .Ended && !isTapped {
@@ -69,10 +59,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 self.isTapped = true
                 self.view.backgroundColor = UIColor(red: CGFloat(180.0/255), green: CGFloat(232.0/255), blue: CGFloat(67.0/255), alpha: CGFloat(1))
                 
-                // Taking in Device Data
                 self.motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue()) {
                     (data, error) in
                     dispatch_async(dispatch_get_main_queue()) {
+                        
                         // Get the Overall time
                         var timeStamp = data.timestamp
 
@@ -101,14 +91,14 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
             }
         } else if recognizer.numberOfTapsRequired==2 && recognizer.state == .Ended && isTapped{
-            //Stop the updates from the acceleromter to get out of callback(?)
+            //Stop the updates from the acceleromter
             self.motionManager.stopDeviceMotionUpdates()
             
-            // Reset hasCollectedData so you don't start a new session & Change Boolean
+            // Reset hasCollectedData so you don't start a new session & Change Boolean for tap
             self.hasCollectedData = true
             self.isTapped = false
             
-            // Sort Dictionary by Key (timestamp) to eliminate negative time stamp issue
+            // Sort Dictionary by Key (timestamp) : eliminates negative time stamp issue
             let sortedDataKeys = Array(self.data.keys).sorted(<)
             
             // CREATE THE POSITION
@@ -116,6 +106,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             // --> Returns next position node to append to the shape
             for time in sortedDataKeys {
                 if let accelerationArray = data[time] {
+                    
                     /* UPDATE THE POSITION Passing in: prevAccel, Elapsed Time */
                     var nextNode : SCNNode
                     nextNode = self.nodeCalc.calculatePosition(self.startPositionNode,
@@ -144,7 +135,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             scnView.backgroundColor = UIColor.blackColor()
             scnView.autoenablesDefaultLighting = true
             scnView.allowsCameraControl = true
-            /***************************/
             
             
             // Test decoding the "Shape"

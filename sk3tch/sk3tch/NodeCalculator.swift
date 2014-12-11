@@ -77,15 +77,15 @@ class NodeCalculator  {
             // Update the acceleration
             startAccelArray = currentAccel
 
-        var node : SCNNode = SCNNode() // the node
-        node.position = SCNVector3(x: curPositionX, y: curPositionY, z: curPositionZ)
+            var node : SCNNode = SCNNode() // the node
+            node.position = SCNVector3(x: curPositionX, y: curPositionY, z: curPositionZ)
 
         
-        // print out segment start & end location
-        //println("start: " + prevPosition.position.stringValue + " end: " + node.position.stringValue)
-        //println("time is: " + Float(time).stringValue)
+            // print out segment start & end location
+            //println("start: " + prevPosition.position.stringValue + " end: " + node.position.stringValue)
+            //println("time is: " + Float(time).stringValue)
         
-        return node
+            return node
     }
     
 }
