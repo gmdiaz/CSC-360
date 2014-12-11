@@ -61,9 +61,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBAction func onTap(recognizer:UITapGestureRecognizer) {
         if recognizer.numberOfTapsRequired==2 && recognizer.state == .Ended && !isTapped {
             
-            //unhide the refresh button
-            self.refreshButton.hidden = false
-            
             if (!hasCollectedData){
                 self.isTapped = true
                 self.view.backgroundColor = UIColor(red: CGFloat(180.0/255), green: CGFloat(232.0/255), blue: CGFloat(67.0/255), alpha: CGFloat(1))
@@ -81,15 +78,15 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                         self.sA_z = self.smoothing * self.sA_z + (1.0-self.smoothing) * Float(data.userAcceleration.z)
                         
                         if (self.sA_x < 0.0002 && self.sA_x > -0.0002) {
-                        self.sA_x = 0.00
+                            self.sA_x = 0.00
                         }
                         
                         if (self.sA_y < 0.0002 && self.sA_y > -0.0002) {
-                        self.sA_y = 0.00
+                            self.sA_y = 0.00
                         }
                         
                         if (self.sA_z < 0.0002 && self.sA_z > -0.0002) {
-                        self.sA_z = 0.00
+                            self.sA_z = 0.00
                         }
 
                         // Add all the data to data dictionary
@@ -97,11 +94,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                         
                     } // callback
                 } // startDeviceMotion
-
             }
         } else if recognizer.numberOfTapsRequired==2 && recognizer.state == .Ended && isTapped{
             //Stop the updates from the acceleromter
             self.motionManager.stopDeviceMotionUpdates()
+            
+            //unhide the refresh button
+            self.refreshButton.hidden = false
             
             // Reset hasCollectedData so you don't start a new session & Change Boolean for tap
             self.hasCollectedData = true
