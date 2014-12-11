@@ -105,26 +105,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                             self.sA_z = 0.00
                         }
                         
-                        /* Using Roll / Pitch / Yaw
-                        var G_x = Float(data.attitude.roll)
-                        var G_y = Float(data.attitude.pitch)
-                        var G_z = Float(data.attitude.yaw) */
-                        
-                        /* Quaternion 
-                        ** Returns: <x, y, z, y>
-                        **
-                        */
-                        var RotationX = Float(data.attitude.quaternion.x)
-                        var RotationY = Float(data.attitude.quaternion.y)
-                        var RotationZ = Float(data.attitude.quaternion.z)
-                        
-                        var RotationArray = [RotationX, RotationY, RotationZ]
-                        //println(RotationArray)
-                        
                         /* UPDATE THE POSITION Passing in: prevAccel, Elapsed Time, Quaternions*/
                         var nextNode : SCNNode
-                        nextNode = self.nodeCalc.calculatePosition(self.startPositionNode,                            currentAccel:[self.sA_x, self.sA_y, self.sA_z],
-                            currentAngle:[RotationX, RotationY, RotationZ],
+                        nextNode = self.nodeCalc.calculatePosition(self.startPositionNode,
+                            currentAccel:[self.sA_x, self.sA_y, self.sA_z],
                             elapsedTime: elapsedTime)
 
                         

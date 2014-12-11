@@ -23,14 +23,8 @@ class NodeCalculator  {
     
     func calculatePosition(prevPosition: SCNNode,
         currentAccel: Array <Float>,
-        currentAngle: Array <Float>,
         elapsedTime: NSTimeInterval) -> SCNNode {
         
-            // q = cos(a/2) + i ( x * sin(a/2)) + j (y * sin(a/2)) + k ( z * sin(a/2))
-            // a = rotation angle
-            // x,y,z = rotaiton axis
-            // q = quaternion that represents the rotation
-            
             // Find the current velocity
             var curVelocityX = self.startAccelArray[0] * Float(elapsedTime) + self.startVelocityArray[0]
             var curVelocityY = self.startAccelArray[1] * Float(elapsedTime) + self.startVelocityArray[1]
