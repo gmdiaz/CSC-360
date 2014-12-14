@@ -20,11 +20,6 @@ class PrimitiveScene: SCNScene {
     override init() {
         super.init()
         
-//        let sphereGeometry = SCNSphere(radius: 1.0)
-//        sphereGeometry.firstMaterial?.diffuse.contents = UIColor.orangeColor()
-//        let sphereNode = SCNNode(geometry: sphereGeometry)
-//        self.rootNode.addChildNode(sphereNode)
-        
     }
     
     func addPoints(points : [SCNNode]){
@@ -49,7 +44,11 @@ class PrimitiveScene: SCNScene {
     }
     
     func removePoints() {
-        self.rootNode.removeFromParentNode()
+        let childrenNodes : [SCNNode] = self.rootNode.childNodes as [SCNNode]
+        for child in childrenNodes {
+            child.removeFromParentNode()
+        }
+        
     }
     
     required init(coder aDecoder: NSCoder) {
