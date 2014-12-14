@@ -45,13 +45,15 @@ class PrimitiveScene: SCNScene {
         }
     }
     
-    func removePoints() {
+    func removeNodes() {
+        println("The number of children nodes in scene pre removal: ",self.rootNode.childNodes.count)
         let childrenNodes : [SCNNode] = self.rootNode.childNodes as [SCNNode]
         for child in childrenNodes {
             child.removeFromParentNode()
         }
         
         self.points = nil
+        println("The number of children nodes in scene post removal: ",self.rootNode.childNodes.count)
     }
     
     required init(coder aDecoder: NSCoder) {

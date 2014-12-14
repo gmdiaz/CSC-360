@@ -16,8 +16,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var motionManager : CMMotionManager! = CMMotionManager()
     
     // custom subview
-    var scene = PrimitiveScene()    // the custom scene for the subview
-    let scnView = SCNView()        // the subview to render the scene in
+    var customScene = PrimitiveScene()    // the custom scene for the subview
+    var scnView = SCNView()        // the subview to render the scene in
     
     // Instance of the start node, at coord(0,0,0)
     var startPositionNode : SCNNode! = SCNNode() // the starting position node
@@ -64,7 +64,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         
         // Add the position nodes
         self.shape.points.append(startPositionNode)
-        
     }
     
     @IBAction func onTap(recognizer:UITapGestureRecognizer) {
@@ -130,10 +129,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             
             // EVERYTHING TO DO WITH THE 3D RENDERING SCENE
             // add points to the scene to draw
-            scene.addPoints(shape.points)
-            println("How many points we got in scene: ",scene.points.count)
-            scnView.scene = scene
-            
+            customScene.addPoints(shape.points)
+            println("How many points we got in scene: ",customScene.points.count)
+            scnView.scene = customScene
             
             // camera & light settings for custom scene
             scnView.backgroundColor = UIColor.blackColor()
@@ -146,7 +144,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             let buttonView: UIView = self.view.subviews[0] as UIView // so the refresh button isn't behind the custom view
             self.view.bringSubviewToFront(buttonView)
             self.view.setNeedsDisplay()
-            
             
             // Test decoding the "Shape"
             /* if let theStroke = Stroke.readFromFile() {
@@ -169,8 +166,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         scnView.removeFromSuperview() // take out the custom view
         
         // reset the shape & scene
-        shape = Stroke()
-        scene = PrimitiveScene()
+        //shape = Stroke()
+        //customScene = PrimitiveScene()
+        //scnView = SCNView()
+        //scnView.frame = CGRectMake(0 , 0, self.view.frame.width, self.view.frame.height);
+        shape.clearPoints()
+        customScene.removeNodes()
         
         // reset the scene of the subview to be nothing
         scnView.scene = nil
