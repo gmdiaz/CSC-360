@@ -11,7 +11,6 @@
 		B9AC65C11A11557A00144224 /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9AC65C01A11557A00144224 /* Shape.swift */; };
 		B9DAF4EE1A2CE04A00952A65 /* PrimitiveScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DAF4ED1A2CE04A00952A65 /* PrimitiveScene.swift */; };
 		B9DAF4F01A2CE50700952A65 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9DAF4EF1A2CE50700952A65 /* SceneKit.framework */; };
-		EC81B33D1A3D34DB0049B451 /* sk3tchLoader.png in Resources */ = {isa = PBXBuildFile; fileRef = EC81B33C1A3D34DB0049B451 /* sk3tchLoader.png */; };
 		EC81B33F1A3D35BA0049B451 /* sk3tchLoaderHeader.png in Resources */ = {isa = PBXBuildFile; fileRef = EC81B33E1A3D35BA0049B451 /* sk3tchLoaderHeader.png */; };
 		EC81B3411A3D35E40049B451 /* sk3tchLoaderCorner.png in Resources */ = {isa = PBXBuildFile; fileRef = EC81B3401A3D35E40049B451 /* sk3tchLoaderCorner.png */; };
 		EC952A321A0AC90B00A4549A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC952A311A0AC90B00A4549A /* AppDelegate.swift */; };
@@ -39,7 +38,6 @@
 		B9AC65C01A11557A00144224 /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
 		B9DAF4ED1A2CE04A00952A65 /* PrimitiveScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PrimitiveScene.swift; path = ../PrimitiveScene.swift; sourceTree = "<group>"; };
 		B9DAF4EF1A2CE50700952A65 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
-		EC81B33C1A3D34DB0049B451 /* sk3tchLoader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sk3tchLoader.png; sourceTree = "<group>"; };
 		EC81B33E1A3D35BA0049B451 /* sk3tchLoaderHeader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sk3tchLoaderHeader.png; sourceTree = "<group>"; };
 		EC81B3401A3D35E40049B451 /* sk3tchLoaderCorner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sk3tchLoaderCorner.png; sourceTree = "<group>"; };
 		EC952A2C1A0AC90B00A4549A /* sk3tch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sk3tch.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,7 +105,6 @@
 			children = (
 				EC81B3401A3D35E40049B451 /* sk3tchLoaderCorner.png */,
 				EC81B33E1A3D35BA0049B451 /* sk3tchLoaderHeader.png */,
-				EC81B33C1A3D34DB0049B451 /* sk3tchLoader.png */,
 				ECE430A91A396A22005ECC47 /* UIButtonBarRefresh.png */,
 				B9DAF4ED1A2CE04A00952A65 /* PrimitiveScene.swift */,
 				B9AC65BF1A11556400144224 /* ShapeModel */,
@@ -230,7 +227,6 @@
 			files = (
 				ECE430AA1A396A22005ECC47 /* UIButtonBarRefresh.png in Resources */,
 				EC952A3A1A0AC90C00A4549A /* Main.storyboard in Resources */,
-				EC81B33D1A3D34DB0049B451 /* sk3tchLoader.png in Resources */,
 				EC81B33F1A3D35BA0049B451 /* sk3tchLoaderHeader.png in Resources */,
 				EC952A3F1A0AC90C00A4549A /* LaunchScreen.xib in Resources */,
 				EC952A3C1A0AC90C00A4549A /* Images.xcassets in Resources */,
