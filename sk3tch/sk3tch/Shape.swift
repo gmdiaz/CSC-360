@@ -8,16 +8,6 @@
 import SceneKit
 import Foundation
 
-/*class Shape : NSObject, NSCoding {
-    var strokes = [Stroke]()
-    
-    required init(coder aDecoder: NSCoder) {
-    }
-
-    func encodeWithCoder(aCoder: NSCoder) {
-    }
-}*/
-
 class Stroke : NSObject, NSCoding  {
     // Reference: http://stackoverflow.com/questions/25311098/archive-array-of-optional-structs-with-nscoding-in-swift
 
@@ -47,9 +37,11 @@ class Stroke : NSObject, NSCoding  {
     class func readFromFile() -> Stroke? {
         let documentsDirectory : AnyObject = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
         let filePath = documentsDirectory.stringByAppendingPathComponent("stroke.txt")
+        
         if let data = NSData(contentsOfFile: filePath) {
             return (NSKeyedUnarchiver.unarchiveObjectWithData(data) as Stroke)
         }
+        
         return nil
     }
 

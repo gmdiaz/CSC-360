@@ -15,6 +15,9 @@ import SceneKit
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var motionManager : CMMotionManager! = CMMotionManager()
     
+    // view stuff
+    //let originalView = scene
+    
     // Instance of the start node, at coord(0,0,0)
     var startPositionNode : SCNNode! = SCNNode() // the starting position node
     var nodeCalc : NodeCalculator! = NodeCalculator()
@@ -41,6 +44,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     // Dictionary for all the incomming values - Key: Timestamp / Value: [AccelX, AccelY, AccelZ]
     var data: [Double: Array<Double>] = [:]
+    
+    
     
     /*
     * viewDidLoad()
@@ -80,9 +85,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 } // startDeviceMotion
             }
         } else if recognizer.numberOfTapsRequired==2 && recognizer.state == .Ended && isTapped{
-            
-            self.view.backgroundColor = UIColor(red: CGFloat(0/255), green: CGFloat(0/255), blue: CGFloat(225/255), alpha: CGFloat(1))
-            
             //Stop the updates from the acceleromter
             self.motionManager.stopDeviceMotionUpdates()
             
@@ -130,11 +132,21 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             scnView.autoenablesDefaultLighting = true
             scnView.allowsCameraControl = true
             
+            var theMessage = [SCNNode]()
+  
             // Test decoding the "Shape"
-            /* if let theStroke = Stroke.readFromFile() {
-                /*firstName.text = person.firstName
-                lastName.text = person.lastName*/
-            }*/
+            if let theStroke = Stroke.readFromFile() {
+                theMessage = theStroke.points
+            }
+            
+            println(theMessage)
+
+            /*
+            var alert = UIAlertController(title: "Alert", message: theMessage, preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+            */
+            
         }
     }
     
@@ -159,5 +171,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
     
 }
