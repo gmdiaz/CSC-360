@@ -14,19 +14,16 @@ import SceneKit
 
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var motionManager : CMMotionManager! = CMMotionManager()
-
-    // view stuff
-    //let originalView = scene
     
-    // custom view     
+    // custom view
     let scene = PrimitiveScene()
     let scnView = SCNView()
     let uiView = UIView()
-
+    
     // Instance of the start node, at coord(0,0,0)
     var startPositionNode : SCNNode! = SCNNode() // the starting position node
     var nodeCalc : NodeCalculator! = NodeCalculator()
-
+    
     // Instance of Shape for saving
     var shape = Stroke()
     
@@ -50,8 +47,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     // Dictionary for all the incomming values - Key: Timestamp / Value: [AccelX, AccelY, AccelZ]
     var data: [Double: Array<Double>] = [:]
     
-    
-    
     /*
     * viewDidLoad()
     */
@@ -61,13 +56,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         //hide the refresh button at start
         self.refreshButton.hidden = true
         
-         // Double tap to start & stop the timer
+        // Double tap to start & stop the timer
         self.doubleTap.numberOfTapsRequired = 2
         self.doubleTap.delegate = self
         
         // Add the position nodes
         self.shape.points.append(startPositionNode)
-
+        
     }
     
     @IBAction func onTap(recognizer:UITapGestureRecognizer) {
@@ -92,6 +87,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 } // startDeviceMotion
             }
         } else if recognizer.numberOfTapsRequired==2 && recognizer.state == .Ended && isTapped{
+            
+            self.view.backgroundColor = UIColor(red: CGFloat(0/255), green: CGFloat(0/255), blue: CGFloat(225/255), alpha: CGFloat(1))
+            
             //Stop the updates from the acceleromter
             self.motionManager.stopDeviceMotionUpdates()
             
@@ -106,7 +104,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             let sortedDataKeys = Array(self.data.keys).sorted(<)
             
             // CREATE THE POSITION
-            // Loop through Dictionary via sortedDataKeys and send values off 
+            // Loop through Dictionary via sortedDataKeys and send values off
             // --> Returns next position node to append to the shape
             for time in sortedDataKeys {
                 if let accelerationArray = data[time] {
@@ -136,36 +134,27 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             scnView.frame = CGRectMake(0 , 0, self.view.frame.width, self.view.frame.height);
             
             //println("subviews1: ", self.view.subviews)
-
+            
             
             // camera & light settings
             scnView.backgroundColor = UIColor.blackColor()
             scnView.autoenablesDefaultLighting = true
             scnView.allowsCameraControl = true
             
-            var theMessage = [SCNNode]()
-  
             self.view.addSubview(scnView)
-
+            
             //println("subviews2: ", self.view.subviews)
-
+            
             let buttonView: AnyObject = self.view.subviews[0] // so the refresh button isn't behind the custom view
             self.view.bringSubviewToFront(buttonView as UIView)
             self.view.setNeedsDisplay()
-
+            
+            
             // Test decoding the "Shape"
-            if let theStroke = Stroke.readFromFile() {
-                theMessage = theStroke.points
-            }
-            
-            println(theMessage)
-
-            /*
-            var alert = UIAlertController(title: "Alert", message: theMessage, preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
-            */
-            
+            /* if let theStroke = Stroke.readFromFile() {
+            /*firstName.text = person.firstName
+            lastName.text = person.lastName*/
+            }*/
         }
     }
     
@@ -177,7 +166,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         //Removes all data (deletes underlying storage buffer) and add starting values
         data.removeAll()
         data[0.00] = [0.00, 0.00, 0.00]
-     
+        
         // Reset the view - get rid of scenekit
         //let scnView = self.view as UIView
         scene.removePoints()
@@ -198,7 +187,5 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
     
 }
