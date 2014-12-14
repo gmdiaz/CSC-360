@@ -14,10 +14,15 @@ import SceneKit
 
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var motionManager : CMMotionManager! = CMMotionManager()
-    
+
     // view stuff
     //let originalView = scene
     
+    // custom view     
+    let scene = PrimitiveScene()
+    let scnView = SCNView()
+    let uiView = UIView()
+
     // Instance of the start node, at coord(0,0,0)
     var startPositionNode : SCNNode! = SCNNode() // the starting position node
     var nodeCalc : NodeCalculator! = NodeCalculator()
@@ -66,6 +71,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @IBAction func onTap(recognizer:UITapGestureRecognizer) {
+        //let scnView = self.view as SCNView
+        
         if recognizer.numberOfTapsRequired==2 && recognizer.state == .Ended && !isTapped {
             
             if (!hasCollectedData){
@@ -122,10 +129,14 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             
             // EVERYTHING TO DO WITH THE 3D RENDERING SCENE
             // set scene to be custom scene
-            let scnView = self.view as SCNView
-            let scene = PrimitiveScene()
+            //let scnView = self.view as SCNView
+            //let scene = PrimitiveScene()
             scene.addPoints(shape.points)
             scnView.scene = scene
+            scnView.frame = CGRectMake(0 , 0, self.view.frame.width, self.view.frame.height);
+            
+            //println("subviews1: ", self.view.subviews)
+
             
             // camera & light settings
             scnView.backgroundColor = UIColor.blackColor()
@@ -134,6 +145,14 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             
             var theMessage = [SCNNode]()
   
+            self.view.addSubview(scnView)
+
+            //println("subviews2: ", self.view.subviews)
+
+            let buttonView: AnyObject = self.view.subviews[0] // so the refresh button isn't behind the custom view
+            self.view.bringSubviewToFront(buttonView as UIView)
+            self.view.setNeedsDisplay()
+
             // Test decoding the "Shape"
             if let theStroke = Stroke.readFromFile() {
                 theMessage = theStroke.points
@@ -160,6 +179,14 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         data[0.00] = [0.00, 0.00, 0.00]
      
         // Reset the view - get rid of scenekit
+        //let scnView = self.view as UIView
+        scene.removePoints()
+        //self.view = UIView()
+        //self.view.backgroundColor = UIColor.whiteColor()
+        scnView.removeFromSuperview()
+        self.view.backgroundColor = UIColor.whiteColor()
+        
+        //println("after removing subview", self.view.subviews)
         
         // Reset the necessary booleans
         hasCollectedData = false
