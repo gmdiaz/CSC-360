@@ -170,8 +170,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         // Reset the view - get rid of scenekit
         //let scnView = self.view as UIView
         scene.removePoints()
-        //self.view = UIView()
-        //self.view.backgroundColor = UIColor.whiteColor()
         scnView.removeFromSuperview()
         self.view.backgroundColor = UIColor.whiteColor()
         
