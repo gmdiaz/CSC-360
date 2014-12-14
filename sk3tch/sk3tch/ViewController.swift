@@ -18,11 +18,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     // custom subview
     var scene = PrimitiveScene()    // the custom scene for the subview
     let scnView = SCNView()        // the subview to render the scene in
-
+    
     // Instance of the start node, at coord(0,0,0)
     var startPositionNode : SCNNode! = SCNNode() // the starting position node
     var nodeCalc : NodeCalculator! = NodeCalculator()
-
+    
     // Instance of Shape for saving
     var shape = Stroke()
     
@@ -55,7 +55,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         //hide the refresh button at start
         self.refreshButton.hidden = true
         
-         // Double tap to start & stop the timer
+        // Double tap to start & stop the timer
         self.doubleTap.numberOfTapsRequired = 2
         self.doubleTap.delegate = self
         
@@ -64,7 +64,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         
         // Add the position nodes
         self.shape.points.append(startPositionNode)
-
+        
     }
     
     @IBAction func onTap(recognizer:UITapGestureRecognizer) {
@@ -106,7 +106,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             let sortedDataKeys = Array(self.data.keys).sorted(<)
             
             // CREATE THE POSITION
-            // Loop through Dictionary via sortedDataKeys and send values off 
+            // Loop through Dictionary via sortedDataKeys and send values off
             // --> Returns next position node to append to the shape
             for time in sortedDataKeys {
                 if let accelerationArray = data[time] {
@@ -142,16 +142,16 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             
             // add custom scene as subview to view
             self.view.addSubview(scnView)
-
+            
             let buttonView: UIView = self.view.subviews[0] as UIView // so the refresh button isn't behind the custom view
             self.view.bringSubviewToFront(buttonView)
             self.view.setNeedsDisplay()
-
+            
             
             // Test decoding the "Shape"
             /* if let theStroke = Stroke.readFromFile() {
-                /*firstName.text = person.firstName
-                lastName.text = person.lastName*/
+            /*firstName.text = person.firstName
+            lastName.text = person.lastName*/
             }*/
         }
     }
@@ -164,7 +164,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         //Removes all data (deletes underlying storage buffer) and add starting values
         data.removeAll()
         data[0.00] = [0.00, 0.00, 0.00]
-     
+        
         // Reset the view - get rid of scenekit
         scnView.removeFromSuperview() // take out the custom view
         
@@ -182,7 +182,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         // Reset the necessary booleans
         hasCollectedData = false
         isTapped = false
-
+        
         self.view.backgroundColor = UIColor.whiteColor()
         
     }

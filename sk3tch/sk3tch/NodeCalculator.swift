@@ -37,7 +37,6 @@ class NodeCalculator  {
             }
             self.oldTime = totalTime
             
-            
             // Iterate through x y and z values
             for i in 0...2 {
                 //Smooth & Minimize Values around 0
@@ -49,7 +48,6 @@ class NodeCalculator  {
                 curVelocity[i] = self.startAccelArray[i] * (elapsedTime) + self.startVelocityArray[i]
             }
  
-
             // Find the current position
             curPosition[0] = (self.startVelocityArray[0] + curVelocity[0]) * 0.5 * (elapsedTime) + Double(prevPosition.position.x)
             curPosition[1] = (self.startVelocityArray[1] + curVelocity[1]) * 0.5 * (elapsedTime) + Double(prevPosition.position.y)
@@ -105,5 +103,4 @@ extension SCNVector3 {
         return result
     }
 }
-
 

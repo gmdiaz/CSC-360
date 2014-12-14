@@ -31,11 +31,13 @@ class PrimitiveScene: SCNScene {
         var counter : Int = 0
         for point in self.points {
             sphereGeometry = SCNSphere(radius: 0.01)
+            
             if counter%2==0 {
                 sphereGeometry.firstMaterial?.diffuse.contents = UIColor.orangeColor()
             } else {
                 sphereGeometry.firstMaterial?.diffuse.contents = UIColor.blueColor()
             }
+            
             sphereNode = SCNNode(geometry: sphereGeometry)
             sphereNode.position =  SCNVector3(x: point.position.x, y: point.position.y, z: point.position.z)
             self.rootNode.addChildNode(sphereNode)
