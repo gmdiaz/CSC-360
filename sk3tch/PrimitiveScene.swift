@@ -49,6 +49,7 @@ class PrimitiveScene: SCNScene {
             child.removeFromParentNode()
         }
         
+        self.points = nil
     }
     
     required init(coder aDecoder: NSCoder) {

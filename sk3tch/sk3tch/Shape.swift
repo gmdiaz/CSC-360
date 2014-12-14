@@ -44,6 +44,10 @@ class Stroke : NSObject, NSCoding  {
         data.writeToFile(filePath, atomically: true)
     }
 
+    func clearPoints() {
+        self.points = [SCNNode]()
+    }
+    
     class func readFromFile() -> Stroke? {
         let documentsDirectory : AnyObject = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
         let filePath = documentsDirectory.stringByAppendingPathComponent("stroke.txt")

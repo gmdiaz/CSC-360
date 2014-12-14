@@ -15,10 +15,9 @@ import SceneKit
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var motionManager : CMMotionManager! = CMMotionManager()
     
-    // custom view     
-    let scene = PrimitiveScene()
-    let scnView = SCNView()
-    let uiView = UIView()
+    // custom subview
+    var scene = PrimitiveScene()    // the custom scene for the subview
+    let scnView = SCNView()        // the subview to render the scene in
 
     // Instance of the start node, at coord(0,0,0)
     var startPositionNode : SCNNode! = SCNNode() // the starting position node
@@ -60,17 +59,20 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         self.doubleTap.numberOfTapsRequired = 2
         self.doubleTap.delegate = self
         
+        // set the frame size of the subview that will hold the custom scene
+        self.scnView.frame = CGRectMake(0 , 0, self.view.frame.width, self.view.frame.height);
+        
         // Add the position nodes
         self.shape.points.append(startPositionNode)
 
     }
     
     @IBAction func onTap(recognizer:UITapGestureRecognizer) {
-        //let scnView = self.view as SCNView
         
         if recognizer.numberOfTapsRequired==2 && recognizer.state == .Ended && !isTapped {
             
             if (!hasCollectedData){
+                //println("After clearing, expect 1 point in array: ",self.shape.points.count)
                 self.isTapped = true
                 self.view.backgroundColor = UIColor(red: CGFloat(180.0/255), green: CGFloat(232.0/255), blue: CGFloat(67.0/255), alpha: CGFloat(1))
                 
@@ -121,32 +123,28 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                     self.startPositionNode = nextNode
                 }
             }
+            println("How many points we got in shape: ",shape.points.count)
             
             //Encode the SCNNOde "Shape"
             self.shape.saveToFile()
             
             // EVERYTHING TO DO WITH THE 3D RENDERING SCENE
-            // set scene to be custom scene
-            //let scnView = self.view as SCNView
-            //let scene = PrimitiveScene()
+            // add points to the scene to draw
             scene.addPoints(shape.points)
+            println("How many points we got in scene: ",scene.points.count)
             scnView.scene = scene
-            scnView.frame = CGRectMake(0 , 0, self.view.frame.width, self.view.frame.height);
             
-            //println("subviews1: ", self.view.subviews)
-
             
-            // camera & light settings
+            // camera & light settings for custom scene
             scnView.backgroundColor = UIColor.blackColor()
             scnView.autoenablesDefaultLighting = true
             scnView.allowsCameraControl = true
             
+            // add custom scene as subview to view
             self.view.addSubview(scnView)
 
-            //println("subviews2: ", self.view.subviews)
-
-            let buttonView: AnyObject = self.view.subviews[0] // so the refresh button isn't behind the custom view
-            self.view.bringSubviewToFront(buttonView as UIView)
+            let buttonView: UIView = self.view.subviews[0] as UIView // so the refresh button isn't behind the custom view
+            self.view.bringSubviewToFront(buttonView)
             self.view.setNeedsDisplay()
 
             
@@ -168,18 +166,25 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         data[0.00] = [0.00, 0.00, 0.00]
      
         // Reset the view - get rid of scenekit
-        //let scnView = self.view as UIView
-        scene.removePoints()
-        //self.view = UIView()
-        //self.view.backgroundColor = UIColor.whiteColor()
-        scnView.removeFromSuperview()
-        self.view.backgroundColor = UIColor.whiteColor()
+        scnView.removeFromSuperview() // take out the custom view
         
-        //println("after removing subview", self.view.subviews)
+        // reset the shape & scene
+        shape = Stroke()
+        scene = PrimitiveScene()
+        
+        // reset the scene of the subview to be nothing
+        scnView.scene = nil
+        
+        // reset the initial node & add it into the new shape's points array
+        startPositionNode = SCNNode()
+        shape.points.append(startPositionNode)
         
         // Reset the necessary booleans
         hasCollectedData = false
         isTapped = false
+
+        self.view.backgroundColor = UIColor.whiteColor()
+        
     }
     
     
