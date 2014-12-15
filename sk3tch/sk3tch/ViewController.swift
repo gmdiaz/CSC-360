@@ -156,7 +156,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         //hide the refresh button
         refreshButton.hidden = true
         
-        //Removes all data (deletes underlying storage buffer) and add starting values
+        //Removes all data (deletes underlying storage buffer)
         data.removeAll()
         
         // Reset the view - get rid of scenekit
