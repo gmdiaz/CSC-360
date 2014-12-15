@@ -1,4 +1,4 @@
-//  NodeInSpace.swift
+//  NodeCalculator.swift
 //  sk3tch
 //
 //  Created by Jessica Mann on 11/10/14.
@@ -38,16 +38,33 @@ class NodeCalculator  {
             self.oldTime = totalTime
             
             // Iterate through x y and z values
+            /*for i in 0...2 {
+            //Smooth & Minimize Values around 0
+            self.startAccelArray[i] = self.smoothing * self.startAccelArray[i] + (1.0-self.smoothing) * (currentAccel[i])
+            
+            if (self.startAccelArray[i] < 0.0002 && self.startAccelArray[i] > -0.0002) {
+            self.startAccelArray[i] = 0.00
+            }
+            
+            curVelocity[i] = self.startAccelArray[i] * (elapsedTime) + self.startVelocityArray[i]
+            }*/
+            
             for i in 0...2 {
-                //Smooth & Minimize Values around 0
-                self.startAccelArray[i] = self.smoothing * self.startAccelArray[i] + (1.0-self.smoothing) * (currentAccel[i])
-                if (self.startAccelArray[i] < 0.0002 && self.startAccelArray[i] > -0.0002) {
+                if (currentAccel[i] < 0.0002 && currentAccel[i] > -0.0002) {
                     self.startAccelArray[i] = 0.00
+                }
+                
+                if ( currentAccel[i] < 0 ) {
+                    self.startAccelArray[i] = (-0.05)
+                }
+                
+                if (currentAccel[i] > 0 ) {
+                    self.startAccelArray[i] = 0.05
                 }
                 
                 curVelocity[i] = self.startAccelArray[i] * (elapsedTime) + self.startVelocityArray[i]
             }
- 
+            
             // Find the current position
             curPosition[0] = (self.startVelocityArray[0] + curVelocity[0]) * 0.5 * (elapsedTime) + Double(prevPosition.position.x)
             curPosition[1] = (self.startVelocityArray[1] + curVelocity[1]) * 0.5 * (elapsedTime) + Double(prevPosition.position.y)
@@ -60,24 +77,22 @@ class NodeCalculator  {
                 } else {
                     self.startVelocityArray[j] = curVelocity[j]
                 }
-                
-                self.startVelocityArray[j] = curVelocity[j]
             }
             
-            /*
+            
             print("Velocity:  ")
             print(self.startVelocityArray)
             print("   Acceleration: ")
             print(self.startAccelArray)
-            println()*/
-
+            println()
+            
             var node : SCNNode = SCNNode() // the node
             node.position = SCNVector3(x: Float(curPosition[0]), y: Float(curPosition[1]), z: Float(curPosition[2]))
-        
+            
             // print out segment start & end location
             //println("start: " + prevPosition.position.stringValue + " end: " + node.position.stringValue)
             //println("time is: " + Float(time).stringValue)
-        
+            
             return node
     }
     
