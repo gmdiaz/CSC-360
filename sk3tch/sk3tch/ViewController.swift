@@ -80,17 +80,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 self.motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue()) {
                     (data, error) in
                     dispatch_async(dispatch_get_main_queue()) {
-                        
-                        
                         self.data[data.timestamp] = [data.userAcceleration.x, data.userAcceleration.y, data.userAcceleration.x]
-                        
                     } // callback
                 } // startDeviceMotion
             }
         } else if recognizer.numberOfTapsRequired==2 && recognizer.state == .Ended && isTapped{
-            
-            self.view.backgroundColor = UIColor(red: CGFloat(0/255), green: CGFloat(0/255), blue: CGFloat(225/255), alpha: CGFloat(1))
-            
             //Stop the updates from the acceleromter
             self.motionManager.stopDeviceMotionUpdates()
             
@@ -140,21 +134,25 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             
             // add custom scene as subview to view
             self.view.addSubview(scnView)
+            //self.view.bringSubviewToFront(scnView)
             
             let buttonView: UIView = self.view.subviews[0] as UIView // so the refresh button isn't behind the custom view
             self.view.bringSubviewToFront(buttonView)
             self.view.setNeedsDisplay()
             
-            // Test decoding the "Shape"
-            /* if let theStroke = Stroke.readFromFile() {
-            /*firstName.text = person.firstName
-            lastName.text = person.lastName*/
-            }*/
+            /* Test decoding the "Shape"
+            var theMessage = [SCNNode]()
+            if let theStroke = Stroke.readFromFile() {
+            theMessage = theStroke.points
+            }
+            
+            println(theMessage)*/
         }
     }
     
     // Refresh Button Functionality
     @IBAction func refreshPressedToResetScene(sender: AnyObject) {
+        
         //hide the refresh button
         refreshButton.hidden = true
         
@@ -165,11 +163,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         // Reset the view - get rid of scenekit
         scnView.removeFromSuperview() // take out the custom view
         
-        // reset the shape & scene
-        //shape = Stroke()
-        //customScene = PrimitiveScene()
-        //scnView = SCNView()
-        //scnView.frame = CGRectMake(0 , 0, self.view.frame.width, self.view.frame.height);
+        /* reset the shape & scene */
         shape.clearPoints()
         customScene.removeNodes()
         
@@ -177,6 +171,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         scnView.scene = nil
         
         // reset the initial node & add it into the new shape's points array
+        shape.points.removeAll(keepCapacity: false)
         startPositionNode = SCNNode()
         shape.points.append(startPositionNode)
         
