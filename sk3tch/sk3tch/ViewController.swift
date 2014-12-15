@@ -179,6 +179,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         scnView.scene = nil
         
         // reset the initial node & add it into the new shape's points array
+        shape.points.removeAll(keepCapacity: false)
         startPositionNode = SCNNode()
         shape.points.append(startPositionNode)
         
