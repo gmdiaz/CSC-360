@@ -50,15 +50,17 @@ class NodeCalculator  {
             }*/
             
             for i in 0...2 {
-                if (currentAccel[i] < 0.0002 && currentAccel[i] > -0.0002) {
+                
+                //Smooth & Minimize Values around 0
+                self.startAccelArray[i] = self.smoothing * self.startAccelArray[i] + (1.0-self.smoothing) * (currentAccel[i])
+                
+                if (self.startAccelArray[i] < 0.0002 && self.startAccelArray[i] > -0.0002) {
                     self.startAccelArray[i] = 0.00
                 }
                 
-                if ( currentAccel[i] < 0 ) {
+                if ( self.startAccelArray[i] < 0 ) {
                     self.startAccelArray[i] = (-0.05)
-                }
-                
-                if (currentAccel[i] > 0 ) {
+                } else if (self.startAccelArray[i] > 0 ) {
                     self.startAccelArray[i] = 0.05
                 }
                 
