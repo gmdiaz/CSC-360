@@ -99,6 +99,7 @@ class NodeCalculator  {
             for i in 0...2 {
                 //Smooth & Minimize Values around 0
                 self.startAccelArray[i] = self.smoothing * self.startAccelArray[i] + (1.0-self.smoothing) * (currentAccel[i])
+                
                 curVelocity[i] = self.startAccelArray[i] * (elapsedTime) + self.startVelocityArray[i]
 
             }
@@ -119,9 +120,9 @@ class NodeCalculator  {
             
             /*print("Velocity:  ")
             print(self.startVelocityArray)
-            print("   Acceleration: ")
+            print("   Acceleration: ")*/
             print(self.startAccelArray)
-            println() */
+            println()
             
             var node : SCNNode = SCNNode() // the node
 

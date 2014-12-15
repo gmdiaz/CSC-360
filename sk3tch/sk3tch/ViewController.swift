@@ -80,7 +80,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 self.motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue()) {
                     (data, error) in
                     dispatch_async(dispatch_get_main_queue()) {
-                        self.data[data.timestamp] = [data.userAcceleration.x, data.userAcceleration.y, data.userAcceleration.x]
+                        self.data[data.timestamp] = [data.userAcceleration.x, data.userAcceleration.y, data.userAcceleration.z]
                     } // callback
                 } // startDeviceMotion
             }
@@ -134,7 +134,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             
             // add custom scene as subview to view
             self.view.addSubview(scnView)
-            self.view.bringSubviewToFront(scnView)
             
             let buttonView: UIView = self.view.subviews[0] as UIView // so the refresh button isn't behind the custom view
             self.view.bringSubviewToFront(buttonView)
@@ -158,7 +157,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         
         //Removes all data (deletes underlying storage buffer) and add starting values
         data.removeAll()
-        data[0.00] = [0.00, 0.00, 0.00]
         
         // Reset the view - get rid of scenekit
         scnView.removeFromSuperview() // take out the custom view
