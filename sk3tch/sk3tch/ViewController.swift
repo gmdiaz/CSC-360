@@ -88,9 +88,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 } // startDeviceMotion
             }
         } else if recognizer.numberOfTapsRequired==2 && recognizer.state == .Ended && isTapped{
-            
-            self.view.backgroundColor = UIColor(red: CGFloat(0/255), green: CGFloat(0/255), blue: CGFloat(225/255), alpha: CGFloat(1))
-            
             //Stop the updates from the acceleromter
             self.motionManager.stopDeviceMotionUpdates()
             
@@ -157,6 +154,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     // Refresh Button Functionality
     @IBAction func refreshPressedToResetScene(sender: AnyObject) {
+        
         //hide the refresh button
         refreshButton.hidden = true
         
