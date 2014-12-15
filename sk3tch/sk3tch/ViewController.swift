@@ -16,11 +16,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var motionManager : CMMotionManager! = CMMotionManager()
     
     // custom subview
-    var customScene = PrimitiveScene()    // the custom scene for the subview
-    var scnView = SCNView()        // the subview to render the scene in
+    var customScene = PrimitiveScene() // the custom scene for the subview
+    var scnView = SCNView()            // the subview to render the scene in
     
     // Instance of the start node, at coord(0,0,0)
-    var startPositionNode : SCNNode! = SCNNode() // the starting position node
+    var startPositionNode : SCNNode! = SCNNode()
     var nodeCalc : NodeCalculator! = NodeCalculator()
     
     // Instance of Shape for saving
@@ -73,14 +73,14 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             if (!hasCollectedData){
                 //println("After clearing, expect 1 point in array: ",self.shape.points.count)
                 self.isTapped = true
-                self.view.backgroundColor = UIColor(red: CGFloat(180.0/255), green: CGFloat(232.0/255), blue: CGFloat(67.0/255), alpha: CGFloat(1))
+                self.view.backgroundColor = UIColor(red: CGFloat(0/255), green: CGFloat(0/255), blue: CGFloat(255/255), alpha: CGFloat(1))
                 
                 self.motionManager.deviceMotionUpdateInterval = 0.01
                 
                 self.motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue()) {
                     (data, error) in
                     dispatch_async(dispatch_get_main_queue()) {
-                        self.data[data.timestamp] = [data.userAcceleration.x, data.userAcceleration.y, data.userAcceleration.x]
+                        self.data[data.timestamp] = [data.userAcceleration.x, data.userAcceleration.y, data.userAcceleration.z]
                     } // callback
                 } // startDeviceMotion
             }
@@ -116,7 +116,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                     self.startPositionNode = nextNode
                 }
             }
-            println("How many points we got in shape: ",shape.points.count)
+            
+            //println("How many points we got in shape: ",shape.points.count)
             
             //Encode the SCNNOde "Shape"
             self.shape.saveToFile()
@@ -124,7 +125,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             // EVERYTHING TO DO WITH THE 3D RENDERING SCENE
             // add points to the scene to draw
             customScene.addPoints(shape.points)
-            println("How many points we got in scene: ",customScene.points.count)
             scnView.scene = customScene
             
             // camera & light settings for custom scene
@@ -134,13 +134,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             
             // add custom scene as subview to view
             self.view.addSubview(scnView)
-            //self.view.bringSubviewToFront(scnView)
             
-            let buttonView: UIView = self.view.subviews[0] as UIView // so the refresh button isn't behind the custom view
+            // So the refresh button isn't behind the custom view
+            let buttonView: UIView = self.view.subviews[0] as UIView
             self.view.bringSubviewToFront(buttonView)
             self.view.setNeedsDisplay()
             
-            /* Test decoding the "Shape"
+            /* Decoding the "Shape" - have nowhere to display this
             var theMessage = [SCNNode]()
             if let theStroke = Stroke.readFromFile() {
             theMessage = theStroke.points
