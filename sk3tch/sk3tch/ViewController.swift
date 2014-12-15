@@ -80,7 +80,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 self.motionManager.startDeviceMotionUpdatesToQueue(NSOperationQueue()) {
                     (data, error) in
                     dispatch_async(dispatch_get_main_queue()) {
-                        self.data[data.timestamp] = [data.userAcceleration.x, data.userAcceleration.y, data.userAcceleration.z]
+                        self.data[data.timestamp] = [data.userAcceleration.x, data.userAcceleration.y, data.userAcceleration.x]
                     } // callback
                 } // startDeviceMotion
             }
@@ -134,6 +134,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             
             // add custom scene as subview to view
             self.view.addSubview(scnView)
+            //self.view.bringSubviewToFront(scnView)
             
             let buttonView: UIView = self.view.subviews[0] as UIView // so the refresh button isn't behind the custom view
             self.view.bringSubviewToFront(buttonView)
@@ -162,11 +163,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         scnView.removeFromSuperview() // take out the custom view
         
         /* reset the shape & scene */
-        //shape = Stroke()
-        //customScene = PrimitiveScene()
-        //scnView = SCNView()
-        //scnView.frame = CGRectMake(0 , 0, self.view.frame.width, self.view.frame.height);
-        
         shape.clearPoints()
         customScene.removeNodes()
         
