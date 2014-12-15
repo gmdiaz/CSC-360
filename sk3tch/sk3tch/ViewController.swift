@@ -145,11 +145,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             self.view.bringSubviewToFront(buttonView)
             self.view.setNeedsDisplay()
             
-            // Test decoding the "Shape"
-            /* if let theStroke = Stroke.readFromFile() {
-            /*firstName.text = person.firstName
-            lastName.text = person.lastName*/
-            }*/
+            /* Test decoding the "Shape"
+            var theMessage = [SCNNode]()
+            if let theStroke = Stroke.readFromFile() {
+            theMessage = theStroke.points
+            }
+            
+            println(theMessage)*/
         }
     }
     
