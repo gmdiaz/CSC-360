@@ -15,51 +15,58 @@ import SceneKit
 
 class PrimitiveScene: SCNScene {
     
-    var points : [SCNNode]!
+    // boolean for determining which presentation of data is shown
+    var isLine = false
+    var isSphere = false
     
     override init() {
         super.init()
         
     }
     
-    func addPoints(points : [SCNNode]){
-        self.points = points
+    func addLines(nodes: [SCNNode]){
+        var vertices : [SCNVector3]
+        var line : SCNNode
+        for index in 0...nodes.count-2 {
+            vertices = [nodes[index].position, nodes[index+1].position]
+            line = makeLine(vertices)
+            self.rootNode.addChildNode(line)
+        }
+        self.isLine = true
+        self.isSphere = false
+    }
+    
+    // takes in an array of 2 vertices & make a line between them
+    // should be a way to do an entire vector, but haven't gotten there yet
+    func makeLine(vertices : [SCNVector3]) -> SCNNode{
+
+        // using the vertices, create a custom geometry source
+        var geoSrc : SCNGeometrySource = SCNGeometrySource(vertices: UnsafePointer<SCNVector3>(vertices), count: vertices.count)
         
-        // drawing a line between each of the two points
-//        var point1 : SCNVector3
-//        var point2 : SCNVector3
-//        var vertices : [SCNVector3]
-//        var geoSrc : SCNGeometrySource
-//        var idx : [Int32] = [0,1]
-//        var data : NSData
-//        var geoElements: SCNGeometryElement
-//        for index in 0...self.points.count-2 {
-//            point1 = points[index].position
-//            point2 = points[index+1].position
-//            vertices = [point1, point2]
-//            geoSrc = SCNGeometrySource(vertices: UnsafePointer<SCNVector3>(vertices), count: vertices.count)
-//            
-//            //index buffer
-//            data = NSData(bytes: idx, length: (sizeof(Int32) * idx.count))
-//            geoElements = SCNGeometryElement(data: data, primitiveType: SCNGeometryPrimitiveType.Line, primitiveCount: idx.count, bytesPerIndex: sizeof(Int32))
-//            
-//            // line node
-//            let geo = SCNGeometry(sources: [geoSrc], elements: [geoElements])
-//            let line = SCNNode(geometry: geo)
-//            geo.firstMaterial?.diffuse.contents = UIColor.orangeColor()
-//            self.rootNode.addChildNode(line)
-//        }
+        // index buffer
+        var idx : [Int32] = [0,1]
+        var data = NSData(bytes: idx, length: (sizeof(Int32) * idx.count))
+        var geoElements : SCNGeometryElement = SCNGeometryElement(data: data, primitiveType: SCNGeometryPrimitiveType.Line, primitiveCount: idx.count, bytesPerIndex: sizeof(Int32))
         
+        // line code
+        let geo = SCNGeometry(sources: [geoSrc], elements: [geoElements])
+        let line = SCNNode(geometry: geo)
+        //geo.firstMaterial?.diffuse.contents = UIColor.greenColor() // doesn't work
+        return line
+
+    }
+    
+    func addSpheres(points : [SCNNode]){
         
         var sphereGeometry : SCNSphere
         var sphereNode : SCNNode
         
         var counter : Int = 0
-        for point in self.points {
+        for point in points {
             sphereGeometry = SCNSphere(radius: 0.01)
             
             if counter%2==0 {
-                sphereGeometry.firstMaterial?.diffuse.contents = UIColor.orangeColor()
+                sphereGeometry.firstMaterial?.diffuse.contents = UIColor.greenColor()
             } else {
                 sphereGeometry.firstMaterial?.diffuse.contents = UIColor.blueColor()
             }
@@ -69,17 +76,16 @@ class PrimitiveScene: SCNScene {
             self.rootNode.addChildNode(sphereNode)
             counter++
         }
+        self.isSphere = true
+        self.isLine = false
     }
     
+    // this also clears the points array
     func removeNodes() {
-        println("The number of children nodes in scene pre removal: ",self.rootNode.childNodes.count)
         let childrenNodes : [SCNNode] = self.rootNode.childNodes as [SCNNode]
         for child in childrenNodes {
             child.removeFromParentNode()
         }
-        
-        self.points = nil
-        println("The number of children nodes in scene post removal: ",self.rootNode.childNodes.count)
     }
     
     required init(coder aDecoder: NSCoder) {
