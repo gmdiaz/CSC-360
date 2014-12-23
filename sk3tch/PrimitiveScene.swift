@@ -51,6 +51,7 @@ class PrimitiveScene: SCNScene {
         // line code
         let geo = SCNGeometry(sources: [geoSrc], elements: [geoElements])
         let line = SCNNode(geometry: geo)
+        
         //geo.firstMaterial?.diffuse.contents = UIColor.greenColor() // doesn't work
         return line
 

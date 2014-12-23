@@ -26,16 +26,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     // Instance of Shape for saving
     var shape = Stroke()
     
-    // I don't think we use this chunk. Take it out, Giovanna?
-//    // For Smothing the data : sA_x = smoothedAccel_x  | Gx_Roll = smoothedGryo_x
-//    var smoothing :Float = 0.99
-//    var sA_x :Float = 0
-//    var sA_y :Float = 0
-//    var sA_z :Float = 0
-    
-//    // Variables used for getting accelerometer data
-//    var frameRate : Float  = 30.0
-    
     //refresh button
     @IBOutlet weak var refreshButton: UIButton!
     
@@ -164,9 +154,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         customScene.removeNodes()
         if customScene.isLine == true {
             customScene.addSpheres(shape.points)
+            switchButton.setTitle("Display as Line", forState: .Normal)
         } else {
             customScene.addLines(shape.points)
-
+            switchButton.setTitle("Display as Points", forState: .Normal)
         }
     }
     
